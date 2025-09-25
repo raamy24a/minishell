@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_struct.h                                 :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: acollon <acollon@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/25 09:28:50 by acollon          ###   ########.fr       */
+/*   Created: 2025/04/18 11:05:06 by acollon           #+#    #+#             */
+/*   Updated: 2025/04/18 11:05:09 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_STRUCT_H
-# define MINISHELL_STRUCT_H
+#include "libft.h"
 
-typedef struct s_env
+void	ft_putchar_fd(char c, int fd)
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
-#endif
+	write (fd, &c, 1);
+}

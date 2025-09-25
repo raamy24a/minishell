@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_struct.h                                 :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: acollon <acollon@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/25 09:28:50 by acollon          ###   ########.fr       */
+/*   Created: 2025/04/18 11:10:35 by acollon           #+#    #+#             */
+/*   Updated: 2025/04/18 11:19:03 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_STRUCT_H
-# define MINISHELL_STRUCT_H
+#include "libft.h"
 
-typedef struct s_env
+void	ft_putendl_fd(char *s, int fd)
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+	int	i;
 
-#endif
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write (fd, &s[i], 1);
+		i++;
+	}
+	write (fd, "\n", 1);
+}

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_struct.h                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/25 09:28:50 by acollon          ###   ########.fr       */
+/*   Created: 2025/05/11 15:25:46 by acollon           #+#    #+#             */
+/*   Updated: 2025/05/11 15:26:17 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_STRUCT_H
-# define MINISHELL_STRUCT_H
+#include "libft.h"
 
-typedef struct s_env
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+	int	i;
 
-#endif
+	i = 0;
+	while ((unsigned char)s1[i] && (unsigned char)s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
