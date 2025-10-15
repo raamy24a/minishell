@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/25 17:02:00 by acollon          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:12:02 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int print_env(t_env *env)
     while (env)
     {
         if (env->value != NULL)
-            printf("%s=%s\n", env->key, env->value);
+            ft_printf("%s=%s\n", env->key, env->value);
         env = env->next;
     }
 	return (0);
@@ -128,5 +128,6 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	}
 	print_env(env_list);
+	free_env(&env_list);
 	return (0);
 }
