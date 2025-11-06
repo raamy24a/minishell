@@ -5,66 +5,147 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 10:27:59 by acollon           #+#    #+#             */
-/*   Updated: 2025/10/23 23:32:36 by acollon          ###   ########.fr       */
+/*   Created: 2025/11/04 14:16:36 by acollon           #+#    #+#             */
+/*   Updated: 2025/11/04 14:39:31 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	lexer(char *input, t_shell *sh)
+t_shell	*new_node(t_tokens *tok)
 {
-	int				i;
-	size_t			*size;
-	t_tokens		*token;
+	t_shell	*node;
 
+	node = (t_shell *)malloc(sizeof(*node));
+	if (!node)
+		return (NULL);
+	node->token = tok;
+	node->next = NULL;
+	return (node);
+}
+
+int	append_node(t_shell **head, t_tokens *tok)
+{
+	t_shell	*node;
+	t_shell	*cur;
+
+	node = new_node(tok);
+	if (!node)
+		return (0);
+	if (!*head)
+	{
+		*head = node;
+		return (1);
+	}
+	cur = *head;
+	while (cur->next)
+		cur = cur->next;
+	cur->next = node;
+	return (1);
+}
+
+void	free_token_list(t_shell **head)
+{
+	t_shell	*cur;
+	t_shell	*next;
+
+	if (!head || !*head)
+		return ;
+	cur = *head;
+	while (cur)
+	{
+		next = cur->next;
+		if (cur->token)
+		{
+			free(cur->token->token);
+			free(cur->token);
+		}
+		free(cur);
+		cur = next;
+	}
+	*head = NULL;
+}
+
+t_tokens	*alloc_token(void)
+{
+	t_tokens	*tok;
+
+	tok = (t_tokens *)malloc(sizeof(*tok));
+	if (!tok)
+		return (NULL);
+	tok->quote = 0;
+	tok->token = NULL;
+	tok->type = TOK_ERROR;
+	return (tok);
+}
+
+int	lexer(const char *input, t_shell **out_list)
+{
+	size_t	i;
+	size_t	size;
+
+	if (!input || !out_list)
+		return (0);
+
+	*out_list = NULL;
 	i = 0;
-	token = malloc(sizeof(t_tokens));
 	while (input[i])
 	{
-		size = 0;
-		if (input[i] ==  '"')
-			token->type = quoted_token(input, size, token);
-		else if (!ft_isspace(input[i]))
-			token->type = get_token_type(input, input[i], size, sh);
-		if (token->type == TOK_ERROR)
-				return (0);
-		else
-			size++;
-		token->token = ft_substr(input, i, *size);
-		i += *size;
+		if (ft_isspace(input[i]))
+		{
+			i++;
+			continue ;
+		}
+		if (!process_token_at(input, i, out_list, &size))
+			return (free_token_list(out_list), 0);
+		i += size;
 	}
 	return (1);
 }
 
-void	free_token(t_shell *sh)
+static void	print_token_type(t_token_type type)
 {
-	if (!sh)
-		return ;
-	while(sh)
-	{
-		free(sh->token->token);	
-		free(sh->token);	
-		sh = sh->next;
-	}
+	if (type == TOK_WORD)
+		printf("WORD");
+	else if (type == TOK_PIPE)
+		printf("PIPE");
+	else if (type == TOK_REDIR_IN)
+		printf("REDIR_IN");
+	else if (type == TOK_REDIR_OUT)
+		printf("REDIR_OUT");
+	else if (type == TOK_APPEND)
+		printf("APPEND");
+	else if (type == TOK_HEREDOC)
+		printf("HEREDOC");
+	else
+		printf("ERROR");
 }
 
 int	main(int ac, char **av)
 {
-	t_shell	*sh;
-	
-	sh = malloc(sizeof(sh));
-	if (ac == 2)
+	t_shell	*list;
+	t_shell	*tmp;
+
+	if (ac != 2)
 	{
-		if (!lexer(av[1], sh))
-			// appelle a la fonction d'affichage d'erreur. 
-		while (sh)
-		{
-			printf("%s %d\n", sh->token->token, sh->token->type);
-			sh = sh->next;
-		}
+		printf("Usage: ./lexer \"<command>\"\n");
+		return (1);
 	}
-	free_token(sh);
-	free(sh);
+	if (!lexer(av[1], &list))
+	{
+		printf("Lexing error.\n");
+		return (1);
+	}
+	tmp = list;
+	while (tmp)
+	{
+		printf("[%s] -> ", tmp->token->token);
+		print_token_type(tmp->token->type);
+		if (tmp->token->quote)
+			printf(" (quoted)");
+		printf("\n");
+		tmp = tmp->next;
+	}
+	free_token_list(&list);
 	return (0);
 }

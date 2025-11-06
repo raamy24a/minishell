@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/26 11:12:02 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/06 10:43:32 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,29 +105,29 @@ t_env	*init_env(char **env)
 
 /*  main de test local */
 
-int print_env(t_env *env)
-{
-    while (env)
-    {
-        if (env->value != NULL)
-            ft_printf("%s=%s\n", env->key, env->value);
-        env = env->next;
-    }
-	return (0);
-}
+// int print_env(t_env *env)
+// {
+//     while (env)
+//     {
+//         if (env->value != NULL)
+//             ft_printf("%s=%s\n", env->key, env->value);
+//         env = env->next;
+//     }
+// 	return (0);
+// }
 
-int	main(int ac, char **av, char **envp)
-{
-	(void)ac;
-	(void)av;
+// int	main(int ac, char **av, char **envp)
+// {
+// 	(void)ac;
+// 	(void)av;
 
-	t_env	*env_list = init_env(envp);
-	if (!env_list)
-	{
-		ft_printf("%s\n", "init env failed");
-		return (1);
-	}
-	print_env(env_list);
-	free_env(&env_list);
-	return (0);
-}
+// 	t_env	*env_list = init_env(envp);
+// 	if (!env_list)
+// 	{
+// 		ft_printf("%s\n", "init env failed");
+// 		return (1);
+// 	}
+// 	print_env(env_list);
+// 	free_env(&env_list);
+// 	return (0);
+// }

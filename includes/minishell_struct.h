@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2025/10/24 00:51:08 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/06 10:47:46 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_shell
 	t_env			*env;
 	t_tokens		*token;
 	char			*error;
-	struct	s_shell	*next;
+	struct s_shell	*next;
 }	t_shell;
 
 #endif
