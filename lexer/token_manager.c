@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:09:54 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/06 10:53:03 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/06 11:16:41 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,25 @@ t_token_type	quoted_token(const char *input, size_t *size, t_tokens *token)
 	return (TOK_WORD);
 }
 
+t_token_type	single_quoted_token(const char *input, size_t *size,
+								t_tokens *token)
+{
+	size_t	i;
+
+	token->quote = 1;
+	i = 0;
+	if (input[i] != 39)
+		return (TOK_ERROR);
+	i++;
+	while (input[i] && input[i] != 39)
+		i++;
+	if (input[i] != 39)
+		return (TOK_ERROR);
+	i++;
+	*size = i;
+	return (TOK_WORD);
+}
+
 int	parse_token(const char *input, size_t i,
 		t_tokens **tok_out, size_t *size_out)
 {
@@ -91,6 +110,8 @@ int	parse_token(const char *input, size_t i,
 		return (0);
 	if (input[i] == '"')
 		type = quoted_token(&input[i], &size, tok);
+	else if (input[i] == 39)
+		type = single_quoted_token(&input[i], &size, tok);
 	else
 		type = get_token_type(&input[i], input[i], &size, NULL);
 	if (type == TOK_ERROR || size == 0)

@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/06 11:09:15 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/06 11:17:10 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int				append_node(t_shell **head, t_tokens *tok);
 void			free_token_list(t_shell **head);
 t_tokens		*alloc_token(void);
 int				lexer(const char *input, t_shell **out_list);
+
 /* token_manager.c */
 t_token_type	redir_append_heredoc(const char *input, char c, size_t *size,
 					t_shell *sh);
@@ -55,6 +56,8 @@ int				parse_token(const char *input, size_t i,
 					t_tokens **tok_out, size_t *size_out);
 int				process_token_at(const char *input, size_t i,
 					t_shell **out_list, size_t *size_out);
+t_token_type	single_quoted_token(const char *input, size_t *size,
+					t_tokens *token);
 
 /* lexer_utils.c */
 int				ft_isspace(char c);
