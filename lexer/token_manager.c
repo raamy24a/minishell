@@ -6,14 +6,58 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:09:54 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/06 11:16:41 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/14 22:57:11 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token_type	redir_append_heredoc(const char *input, char c, size_t *size,
-									t_shell *sh)
+static int	advance_quoted_segment(const char *input, size_t *index)
+{
+	char	quote;
+
+	quote = input[*index];
+	(*index)++;
+	while (input[*index] && input[*index] != quote)
+		(*index)++;
+	if (input[*index] != quote)
+		return (0);
+	(*index)++;
+	return (1);
+}
+
+static int	scan_word(const char *input, size_t *size, int *fully_quoted)
+{
+	size_t	i;
+	int	unquoted;
+
+	i = 0;
+	unquoted = 0;
+	if (!input || !size)
+		return (0);
+	while (input[i] && !ft_isspace(input[i]) && !ft_istoken(input[i]))
+	{
+		if (ft_isquote(input[i]))
+		{
+			if (!advance_quoted_segment(input, &i))
+				return (0);
+		}
+		else
+		{
+			unquoted = 1;
+			i++;
+		}
+	}
+	if (i == 0)
+		return (0);
+	*size = i;
+	if (fully_quoted)
+		*fully_quoted = !unquoted;
+	return (1);
+}
+
+t_token_type	redir_append_heredoc(const char *input, char c,
+		size_t *size, t_shell *sh)
 {
 	(void)sh;
 	*size = 0;
@@ -41,65 +85,8 @@ t_token_type	redir_append_heredoc(const char *input, char c, size_t *size,
 	return (TOK_ERROR);
 }
 
-t_token_type	get_token_type(const char *input, char c, size_t *size,
-							t_shell *sh)
-{
-	size_t	i;
-
-	if (ft_istoken(c))
-		return (redir_append_heredoc(input, c, size, sh));
-	i = 0;
-	while (input[i]
-		&& !ft_isspace(input[i])
-		&& !ft_istoken(input[i])
-		&& input[i] != '"')
-		i++;
-	*size = i;
-	if (*size > 0)
-		return (TOK_WORD);
-	else
-		return (TOK_ERROR);
-}
-
-t_token_type	quoted_token(const char *input, size_t *size, t_tokens *token)
-{
-	size_t	i;
-
-	token->quote = 1;
-	i = 0;
-	if (input[i] != '"')
-		return (TOK_ERROR);
-	i++;
-	while (input[i] && input[i] != '"')
-		i++;
-	if (input[i] != '"')
-		return (TOK_ERROR);
-	i++;
-	*size = i;
-	return (TOK_WORD);
-}
-
-t_token_type	single_quoted_token(const char *input, size_t *size,
-								t_tokens *token)
-{
-	size_t	i;
-
-	token->quote = 1;
-	i = 0;
-	if (input[i] != 39)
-		return (TOK_ERROR);
-	i++;
-	while (input[i] && input[i] != 39)
-		i++;
-	if (input[i] != 39)
-		return (TOK_ERROR);
-	i++;
-	*size = i;
-	return (TOK_WORD);
-}
-
-int	parse_token(const char *input, size_t i,
-		t_tokens **tok_out, size_t *size_out)
+int	parse_token(const char *input, size_t i, t_tokens **tok_out,
+		size_t *size_out)
 {
 	t_tokens		*tok;
 	t_token_type	type;
@@ -108,12 +95,12 @@ int	parse_token(const char *input, size_t i,
 	tok = alloc_token();
 	if (!tok)
 		return (0);
-	if (input[i] == '"')
-		type = quoted_token(&input[i], &size, tok);
-	else if (input[i] == 39)
-		type = single_quoted_token(&input[i], &size, tok);
+	if (ft_istoken(input[i]))
+		type = redir_append_heredoc(&input[i], input[i], &size, NULL);
+	else if (!scan_word(&input[i], &size, &tok->quote))
+		type = TOK_ERROR;
 	else
-		type = get_token_type(&input[i], input[i], &size, NULL);
+		type = TOK_WORD;
 	if (type == TOK_ERROR || size == 0)
 	{
 		free(tok);
@@ -125,8 +112,8 @@ int	parse_token(const char *input, size_t i,
 	return (1);
 }
 
-int	process_token_at(const char *input, size_t i,
-		t_shell **out_list, size_t *size_out)
+int	process_token_at(const char *input, size_t i, t_shell **out_list,
+		size_t *size_out)
 {
 	t_tokens	*tok;
 	size_t		size;

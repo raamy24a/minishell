@@ -6,7 +6,7 @@
 /*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:16:36 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/04 14:39:31 by acollon          ###   ########.fr       */
+/*   Updated: 2025/11/14 22:56:35 by acollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_shell	*new_node(t_tokens *tok)
 	node = (t_shell *)malloc(sizeof(*node));
 	if (!node)
 		return (NULL);
+	node->env = NULL;
 	node->token = tok;
+	node->error = NULL;
 	node->next = NULL;
 	return (node);
 }
@@ -86,9 +88,9 @@ int	lexer(const char *input, t_shell **out_list)
 
 	if (!input || !out_list)
 		return (0);
-
 	*out_list = NULL;
 	i = 0;
+	size = 0;
 	while (input[i])
 	{
 		if (ft_isspace(input[i]))
@@ -101,51 +103,4 @@ int	lexer(const char *input, t_shell **out_list)
 		i += size;
 	}
 	return (1);
-}
-
-static void	print_token_type(t_token_type type)
-{
-	if (type == TOK_WORD)
-		printf("WORD");
-	else if (type == TOK_PIPE)
-		printf("PIPE");
-	else if (type == TOK_REDIR_IN)
-		printf("REDIR_IN");
-	else if (type == TOK_REDIR_OUT)
-		printf("REDIR_OUT");
-	else if (type == TOK_APPEND)
-		printf("APPEND");
-	else if (type == TOK_HEREDOC)
-		printf("HEREDOC");
-	else
-		printf("ERROR");
-}
-
-int	main(int ac, char **av)
-{
-	t_shell	*list;
-	t_shell	*tmp;
-
-	if (ac != 2)
-	{
-		printf("Usage: ./lexer \"<command>\"\n");
-		return (1);
-	}
-	if (!lexer(av[1], &list))
-	{
-		printf("Lexing error.\n");
-		return (1);
-	}
-	tmp = list;
-	while (tmp)
-	{
-		printf("[%s] -> ", tmp->token->token);
-		print_token_type(tmp->token->type);
-		if (tmp->token->quote)
-			printf(" (quoted)");
-		printf("\n");
-		tmp = tmp->next;
-	}
-	free_token_list(&list);
-	return (0);
 }

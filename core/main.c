@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: labeuhlognaise <labeuhlognaise@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 17:14:13 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/14 22:56:23 by acollon          ###   ########.fr       */
+/*   Created: 2025/12/07 15:31:11 by acollon           #+#    #+#             */
+/*   Updated: 2025/12/11 13:51:59 by labeuhlogna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_isspace(char c)
+int	main(int argc, char **argv, char **envp)
 {
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
+	t_env   *env;
 
-int	ft_istoken(char c)
-{
-	if (c == '|' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
-
-int	ft_isquote(char c)
-{
-	if (c == 39 || c == '"')
-		return (1);
-	return (0);
+	(void)argv;
+	if (argc != 1)
+	{
+		ft_putendl_fd("Usage: ./minishell", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	env = init_shell(envp);
+	if (!env)
+		return (EXIT_FAILURE);
+	quit_shell(interactive_shell(env), env);
 }
