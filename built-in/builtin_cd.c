@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/15 16:35:38 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/15 16:40:00 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,17 @@ void	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
 {
 	char	**s;
 
-	s = malloc (sizeof (char *) * 2);
+	s = malloc (sizeof (char *) * 3);
 	s[1] = NULL;
-	s[0] = ft_strjoin("OLDPWD=", old_pwd_value);
+	s[0] = ft_strdup("export");
 	if (!s[0])
 		exit(1);
+	s[1] = ft_strjoin("OLDPWD=", old_pwd_value);
+	if (!s[1])
+		exit(1);
 	export_with_args(env, s, 0);
-	s[0] = ft_strjoin("PWD=", pwd_value);
-	if (!s[0])
+	s[1] = ft_strjoin("PWD=", pwd_value);
+	if (!s[1])
 		exit(1);
 	export_with_args(env, s, 0);
 	free(s[0]);
