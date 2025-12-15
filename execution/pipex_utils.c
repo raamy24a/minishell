@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/21 10:12:00 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:20:52 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char    *px_find_path(char *cmd, char **envp)
         path_value = get_path_value(envp);
         if (!path_value)
                 return (NULL);
-        paths = ft_split(path_value, ':');
+        paths = ft_split(path_value, ":");
         if (!paths)
                 return (NULL);
         i = 0;

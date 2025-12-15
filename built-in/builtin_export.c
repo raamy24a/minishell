@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2025/12/10 14:23:46 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/15 15:11:56 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int	export_builtin(t_env *environement, char **command)
 	int		x;
 
 	x = 0;
-	if (!command[0])
+	if (!command[1])
 	{
 		sorted_env = sorting_list(environement);
 		temp = sorted_env;
@@ -156,6 +156,6 @@ int	export_builtin(t_env *environement, char **command)
 		printf("declare -x %s=\"%s\"\n", temp->key, temp->value);
 	}
 	else
-		x = export_with_args(environement, command, -1);
+		x = export_with_args(environement, &command[1], -1);
 	return (x);
 }

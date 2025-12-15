@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/12 16:17:56 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/15 16:34:52 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void			ft_lstadd_back_env(t_env *lst, t_env *new);
 char			*get_value_of_key(t_env *env, char *key);
 char			*get_pwd(void);
 int				builtin_unset(t_env *env, char **to_unset, t_env *temp, int x);
+int				export_with_args(t_env *environement, char **command, int i);
 
 
 // CORE

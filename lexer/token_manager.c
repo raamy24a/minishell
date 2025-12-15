@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:09:54 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/14 22:57:11 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/15 16:26:26 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	advance_quoted_segment(const char *input, size_t *index)
 static int	scan_word(const char *input, size_t *size, int *fully_quoted)
 {
 	size_t	i;
-	int	unquoted;
+	int		unquoted;
 
 	i = 0;
 	unquoted = 0;

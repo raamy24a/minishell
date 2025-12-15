@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2025/11/21 10:12:00 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:11:15 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char     **build_args(char *cmd)
 {
         if (!cmd)
                 return (NULL);
-        return (ft_split(cmd, ' '));
+        return (ft_split(cmd, " "));
 }
 
 int     px_exec(char *cmd, char **envp)

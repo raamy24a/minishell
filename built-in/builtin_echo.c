@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/12 15:44:38 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/15 16:25:34 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/minishell_struct.h"
 #include "../libft/libft.h"
 
-int	echo_dollars(char *s, int x, int i, t_env *env)
+int	echo_dollars(char *s, int x, t_env *env)
 {
 	char	*temp;
 	t_env	*tmp;
@@ -34,10 +34,10 @@ int	echo_dollars(char *s, int x, int i, t_env *env)
 	temp[x] = '\0';
 	while (tmp->next && ft_strcmp(temp, tmp->key) != 0)
 		tmp = tmp->next;
-	if (ft_strcmp(temp, tmp->key))
+	if (ft_strcmp(temp, tmp->key) == 0)
 		printf("%s", tmp->value);
 	free(temp);
-	return (i);
+	return (x + 1);
 }
 //newline = 1
 //x = -1
@@ -50,7 +50,7 @@ int	echo_write(char **string, t_env *env, int x, int i)
 		while (string[x][i])
 		{
 			if (string[x][i] == '$')
-				i += echo_dollars(&string[x][i + 1], 0, 0, env);
+				i += echo_dollars(&string[x][i + 1], 0, env);
 			else
 				write(1, &string[x][i++], 1);
 		}
