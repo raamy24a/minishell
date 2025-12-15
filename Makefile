@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acollon <acollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: labeuhlognaise <labeuhlognaise@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 16:37:52 by acollon           #+#    #+#              #
-#    Updated: 2025/11/11 12:34:12 by acollon          ###   ########.fr        #
+#    Updated: 2025/12/15 15:36:20 by labeuhlogna      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,13 @@ SRCS        = \
                 parser/parser_token.c \
                 parser/parser_utils.c \
                 built-in/builtin.c \
+                built-in/builtin_cd.c \
+                built-in/builtin_echo.c \
+                built-in/builtin_exit.c \
+                built-in/builtin_export.c \
+                built-in/builtin_pwd.c \
+                built-in/builtin_unset.c \
+                built-in/env_manipulation.c \
                 execution/pipex.c \
                 execution/pipex_exec.c \
                 execution/pipex_utils.c \
