@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:07:00 by acollon           #+#    #+#             */
-/*   Updated: 2025/04/24 19:23:45 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/16 16:07:36 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ char	*ft_strdup(const char *s)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*join;
+	size_t	total_len;
 	int		i;
 	int		j;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	join = malloc(sizeof(char) * total_len + 1);
 	if (!join)
 		return (NULL);
 	while (s1[i] != '\0')

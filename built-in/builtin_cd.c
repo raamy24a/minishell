@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/16 13:37:59 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/16 16:29:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,27 +115,14 @@ char	*cd_home(t_env *env)
 
 char	*cd_last(t_env *env)
 {
-	char	*temp_str;
-	t_env	*temp_pwd;
-	t_env	*temp_old_pwd;
-
-	temp_pwd = env;
-	temp_old_pwd = env;
-	while (temp_pwd->next && ft_strcmp ("PWD", temp_pwd->key) != 0)
-		temp_pwd = temp_pwd->next;
-	temp_str = temp_pwd->value;
-	while (temp_old_pwd->next && ft_strcmp ("OLDPWD", temp_old_pwd->key) != 0)
-		temp_old_pwd = temp_old_pwd->next;
-	if (ft_strcmp ("OLDPWD", temp_old_pwd->key) != 0)
+	if (get_value_of_key(env, "OLDPWD") == NULL)
 	{
 		ft_printf("minishell: cd: OLDPWD not set\n");
 		return (NULL);
 	}
-	temp_pwd->value = temp_old_pwd->value;
-	temp_old_pwd->value = temp_str;
-	old_n_pwd(env, temp_old_pwd->value, temp_pwd->value);
-	return (temp_pwd->value);
+	return (get_value_of_key(env, "OLDPWD"));
 }
+
 int wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 {
 	if (!string_after_cd)
@@ -150,7 +137,7 @@ int wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 		x = chdir(cd_last(env));
 		printf("%s\n", get_pwd());
 		if (x == 0)
-			return (old_n_pwd(env, old_pwd, get_pwd()));
+			return (old_n_pwd(env, get_value_of_key(env, "OLDPWD"), get_pwd()));
 	}
 	return (-1);
 }
@@ -172,6 +159,5 @@ int	call_cd(t_env *env, char *string_after_cd)
 		perror("rien pour le moment");
 		return (errno);
 	}
-	printf("%s\n", get_pwd());
 	return (old_n_pwd(env, old_pwd, get_pwd()));
 }
