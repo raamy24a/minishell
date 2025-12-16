@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:37:46 by acollon           #+#    #+#             */
-/*   Updated: 2025/10/24 00:51:16 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:09:00 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,3 @@ void	syntax_error(char *token, t_shell *sh)
 		sh->error = token;
 	return ;
 }
-

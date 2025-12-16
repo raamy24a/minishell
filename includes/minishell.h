@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/15 16:34:52 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/16 14:21:47 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char			*get_value_of_key(t_env *env, char *key);
 char			*get_pwd(void);
 int				builtin_unset(t_env *env, char **to_unset, t_env *temp, int x);
 int				export_with_args(t_env *environement, char **command, int i);
-
 
 // CORE
 /* init_shell.c */
@@ -93,7 +92,8 @@ int				parser(t_shell *tokens, t_command **out);
 /* Token handling */
 int				handle_token(t_shell **node, t_command **head, t_command **tail,
 					t_command **current, bool *pipe_pending);
-int				handle_redirection(t_command *current, t_shell **token_node, t_token_type type);
+int				handle_redirection(t_command *current,
+					t_shell **token_node, t_token_type type);
 int				ensure_command(t_command **head, t_command **tail,
 					t_command **current, bool pipe_before);
 
@@ -107,7 +107,7 @@ void			free_command_list(t_command **head);
 
 /* Redirection handling */
 int				command_add_redir(t_command *cmd, t_token_type type,
-					  const t_tokens *token);
+					const t_tokens *token);
 void			free_redir_list(t_redir *redir);
 
 /* Parser utils */

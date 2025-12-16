@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labeuhlognaise <labeuhlognaise@student.    +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:11 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/11 13:51:59 by labeuhlogna      ###   ########.fr       */
+/*   Updated: 2025/12/16 14:06:45 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env   *env;
+	t_env	*env;
 
 	(void)argv;
 	if (argc != 1)

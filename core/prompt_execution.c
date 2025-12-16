@@ -6,17 +6,17 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/15 16:25:17 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/16 14:08:29 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <string.h>
 
-static int handle_heredoc(const char *delimiter)
+static int	handle_heredoc(const char *delimiter)
 {
-	int pipefd[2];
-	char *line;
+	int		pipefd[2];
+	char	*line;
 
 	if (pipe(pipefd) == -1)
 	{
@@ -27,7 +27,7 @@ static int handle_heredoc(const char *delimiter)
 	{
 		line = readline("> ");
 		if (!line || !strcmp(line, delimiter))
-			break;
+			break ;
 		ft_putendl_fd(line, pipefd[1]);
 		free(line);
 	}
@@ -36,9 +36,9 @@ static int handle_heredoc(const char *delimiter)
 	return (pipefd[0]);
 }
 
-static int apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
+static int	apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
 {
-	int fd;
+	int	fd;
 
 	while (redir)
 	{
@@ -73,9 +73,9 @@ static int apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
 	return (0);
 }
 
-int exec_builtin(int x, char **command, t_env *env)
+int	exec_builtin(int x, char **command, t_env *env)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	temp = NULL;
 	if (x == 1)
@@ -92,7 +92,8 @@ int exec_builtin(int x, char **command, t_env *env)
 		return (printf("Exit code: %d\n", exit_call(0)));
 	return (0);
 }
-int is_builtin(char *builtin_str)
+
+int	is_builtin(char *builtin_str)
 {
 	if (ft_strcmp(builtin_str, "export") == 0)
 		return (3);
@@ -104,7 +105,8 @@ int is_builtin(char *builtin_str)
 		return (6);
 	return (0);
 }
-int is_builtin_child(char *builtin_str)
+
+int	is_builtin_child(char *builtin_str)
 {
 	if (ft_strcmp(builtin_str, "echo") == 0)
 		return (1);
@@ -113,7 +115,7 @@ int is_builtin_child(char *builtin_str)
 	return (0);
 }
 
-static void child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
+static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 {
 	int	input_fd;
 	int	output_fd;
@@ -145,9 +147,9 @@ static void child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 	exit(127);
 }
 
-static pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
+static	pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	if (is_builtin(cmd->argv[0]))
 		return (exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
@@ -165,7 +167,7 @@ static pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env
 	}
 }
 
-static int wait_children(pid_t last_pid, int count)
+static int	wait_children(pid_t last_pid, int count)
 {
 	int	status;
 	int	exit_code;
@@ -184,12 +186,12 @@ static int wait_children(pid_t last_pid, int count)
 	return (exit_code);
 }
 
-static int execute_commands(t_command *cmd, t_env *env)
+static int	execute_commands(t_command *cmd, t_env *env)
 {
-	int prev_fd;
-	pid_t last_pid;
-	int count;
-	int pipefd[2];
+	int		prev_fd;
+	pid_t	last_pid;
+	int		count;
+	int		pipefd[2];
 
 	prev_fd = -1;
 	last_pid = -1;
@@ -220,10 +222,10 @@ static int execute_commands(t_command *cmd, t_env *env)
 	return (wait_children(last_pid, count));
 }
 
-static int run_pipeline(t_shell *tokens, t_env *env)
+static int	run_pipeline(t_shell *tokens, t_env *env)
 {
-	t_command *cmds;
-	int status;
+	t_command	*cmds;
+	int			status;
 
 	(void)env;
 	cmds = NULL;
@@ -236,10 +238,10 @@ static int run_pipeline(t_shell *tokens, t_env *env)
 	return (status);
 }
 
-int prompt_execution(char *user_input, t_env *env)
+int	prompt_execution(char *user_input, t_env *env)
 {
-	t_shell *token_list;
-	int status;
+	t_shell	*token_list;
+	int		status;
 
 	token_list = NULL;
 	status = 0;

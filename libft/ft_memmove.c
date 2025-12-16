@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 21:53:22 by acollon           #+#    #+#             */
-/*   Updated: 2025/05/04 14:25:58 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:18:09 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,15 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main()
-{
-	char *s1 = NULL;
-	char *s2 = NULL;
-	int size = 5;
-	char *test;
-	
-	test = (char *)ft_memmove(s1, s2, size);
-	
-	printf("%s\n", test);
-}
+// int	main()
+// {
+// 	char *s1 = NULL;
+// 	s
+// 	char *s2 = NULL;
+// 	int size = 5;
+// 	char	*test;
+// 	test = (char *)ft_memmove(s1, s2, size);
+// 	printf("%s\n", test);
+// }

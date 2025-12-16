@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 13:14:34 by acollon           #+#    #+#             */
-/*   Updated: 2025/09/08 19:03:11 by acollon          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:18:48 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ long	ft_atol(const char *nptr)
 	return (result * sign);
 }
 
-int	main(int ac, char **av)
-{
-	if (ac == 2)
-	{
-		printf("%lu\n", ft_atol(av[1]));
-		printf("%lu\n", atol(av[1]));
-	}
-	return (0);
-}
+// int	main(int ac, char **av)
+// {
+// 	if (ac == 2)
+// 	{
+// 		printf("%lu\n", ft_atol(av[1]));
+// 		printf("%lu\n", atol(av[1]));
+// 	}
+// 	return (0);
+// }

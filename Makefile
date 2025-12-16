@@ -6,7 +6,7 @@
 #    By: radib <radib@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 16:37:52 by acollon           #+#    #+#              #
-#    Updated: 2025/12/12 16:33:03 by radib            ###   ########.fr        #
+#    Updated: 2025/12/16 14:23:29 by radib            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ SRCS        = \
                 parser/parser_redir.c \
                 parser/parser_token.c \
                 parser/parser_utils.c \
-                built-in/builtin.c \
 				built-in/builtin_echo.c \
 				built-in/builtin_unset.c \
 				built-in/builtin_export.c \

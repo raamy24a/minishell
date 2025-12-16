@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:09:54 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/15 16:26:26 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/16 14:21:14 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ static int	advance_quoted_segment(const char *input, size_t *index)
 	return (1);
 }
 
-static int	scan_word(const char *input, size_t *size, int *fully_quoted)
+static int	scan_word(const char *input, size_t *size, int *fully_quoted,
+		size_t i)
 {
-	size_t	i;
 	int		unquoted;
 
-	i = 0;
 	unquoted = 0;
 	if (!input || !size)
 		return (0);
@@ -97,7 +96,7 @@ int	parse_token(const char *input, size_t i, t_tokens **tok_out,
 		return (0);
 	if (ft_istoken(input[i]))
 		type = redir_append_heredoc(&input[i], input[i], &size, NULL);
-	else if (!scan_word(&input[i], &size, &tok->quote))
+	else if (!scan_word(&input[i], &size, &tok->quote, 0))
 		type = TOK_ERROR;
 	else
 		type = TOK_WORD;

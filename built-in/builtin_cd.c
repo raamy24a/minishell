@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/15 16:40:00 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/16 13:37:59 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*cd_builtin(char *path, char *string_after_cd, int x)
 	return (path);
 }
 
-void	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
+int	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
 {
 	char	**s;
 
@@ -94,6 +94,7 @@ void	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
 	export_with_args(env, s, 0);
 	free(s[0]);
 	free(s);
+	return (0);
 }
 
 char	*cd_home(t_env *env)
@@ -135,32 +136,42 @@ char	*cd_last(t_env *env)
 	old_n_pwd(env, temp_old_pwd->value, temp_pwd->value);
 	return (temp_pwd->value);
 }
-
-int	call_cd(t_env *env, char *string_after_cd)
+int wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 {
-	char	buffer[BUFFER_SIZE + 1];
-	int		x;
-
-	buffer[BUFFER_SIZE] = '\0';
-	getcwd (buffer, BUFFER_SIZE);
 	if (!string_after_cd)
 	{
 		x = chdir(cd_home(env));
 		printf("%s\n", get_pwd());
-		
-		return (x);
+		if (x == 0)
+			return (old_n_pwd(env, old_pwd, get_pwd()));
 	}
 	if (ft_strlen(string_after_cd) == 1 && string_after_cd[0] == '-')
 	{
 		x = chdir(cd_last(env));
 		printf("%s\n", get_pwd());
-		return (x);
+		if (x == 0)
+			return (old_n_pwd(env, old_pwd, get_pwd()));
 	}
+	return (-1);
+}
+
+int	call_cd(t_env *env, char *string_after_cd)
+{
+	char	buffer[BUFFER_SIZE + 1];
+	int		x;
+	char	*old_pwd;
+
+	old_pwd = get_pwd();
+	buffer[BUFFER_SIZE] = '\0';
+	getcwd (buffer, BUFFER_SIZE);
+	x = wich_cd(env, string_after_cd, -1, old_pwd);
+	if (x == 0)
+		return (x);
 	if ((chdir(cd_builtin(buffer, string_after_cd, 0)) != 0))
 	{
 		perror("rien pour le moment");
 		return (errno);
 	}
 	printf("%s\n", get_pwd());
-	return (0);
+	return (old_n_pwd(env, old_pwd, get_pwd()));
 }
