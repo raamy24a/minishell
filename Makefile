@@ -6,7 +6,7 @@
 #    By: radib <radib@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 16:37:52 by acollon           #+#    #+#              #
-#    Updated: 2025/12/16 14:23:29 by radib            ###   ########.fr        #
+#    Updated: 2025/12/18 14:42:23 by radib            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS        = \
 				built-in/builtin_echo.c \
 				built-in/builtin_unset.c \
 				built-in/builtin_export.c \
+				built-in/builtin_env.c \
 				built-in/builtin_cd.c \
 				built-in/builtin_exit.c \
 				built-in/builtin_pwd.c \

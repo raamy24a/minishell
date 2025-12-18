@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/16 16:29:20 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 16:15:51 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,18 @@ int	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
 	char	**s;
 
 	s = malloc (sizeof (char *) * 3);
-	s[1] = NULL;
+	s[2] = NULL;
 	s[0] = ft_strdup("export");
 	if (!s[0])
 		exit(1);
 	s[1] = ft_strjoin("OLDPWD=", old_pwd_value);
 	if (!s[1])
 		exit(1);
-	export_with_args(env, s, 0);
+	export_with_args(env, s, 0, 0);
 	s[1] = ft_strjoin("PWD=", pwd_value);
 	if (!s[1])
 		exit(1);
-	export_with_args(env, s, 0);
+	export_with_args(env, s, 0, 0);
 	free(s[0]);
 	free(s);
 	return (0);
@@ -128,16 +128,18 @@ int wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 	if (!string_after_cd)
 	{
 		x = chdir(cd_home(env));
-		printf("%s\n", get_pwd());
 		if (x == 0)
+		{
+			printf("%s\n", get_pwd());
 			return (old_n_pwd(env, old_pwd, get_pwd()));
+		}
 	}
 	if (ft_strlen(string_after_cd) == 1 && string_after_cd[0] == '-')
 	{
 		x = chdir(cd_last(env));
 		printf("%s\n", get_pwd());
 		if (x == 0)
-			return (old_n_pwd(env, get_value_of_key(env, "OLDPWD"), get_pwd()));
+			return (old_n_pwd(env, get_value_of_key(env, "PWD"), get_value_of_key(env, "OLDPWD")));
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:44:56 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 16:07:26 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 15:47:55 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*join;
-	size_t	total_len;
-	int		i;
-	int		j;
+	char	*str_strjoin;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	total_len = ft_strlen(s1) + ft_strlen(s2);
-	join = malloc(sizeof(char) * total_len + 1);
-	if (!join)
+	j = 0;
+	if (!s1 && !s2)
 		return (NULL);
-	while (s1[i] != '\0')
+	if (!s1)
+		return ((char *) s2);
+	if (!s2)
+		return ((char *) s1);
+	str_strjoin = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str_strjoin)
+		return (NULL);
+	while (s1[i++])
+		str_strjoin[i - 1] = s1[i - 1];
+	while (s2[j++])
 	{
-		join[i] = s1[i];
+		str_strjoin[i - 1] = s2[j - 1];
 		i++;
 	}
-	j = i;
-	i = 0;
-	while (s2[i] != '\0')
-	{
-		join[j + i] = s2[i];
-		i++;
-	}
-	join[j + i] = '\0';
-	return (join);
+	str_strjoin[i - 1] = '\0';
+	return (str_strjoin);
 }
 /*
 #include <stdio.h>

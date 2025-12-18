@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:21:47 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 16:08:26 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@
 int				call_cd(t_env *env, char *string_after_cd);
 int				echobuiltin(char **string, t_env *env, int newline, int x);
 int				exit_call(int x);
-int				export_builtin(t_env *environement, char **command);
+int				export_builtin(t_env *environement, char **command, int verify);
 int				call_pwd(void);
 char			**ft_split(char *str, char *charset);
 void			ft_lstadd_back_env(t_env *lst, t_env *new);
 char			*get_value_of_key(t_env *env, char *key);
 char			*get_pwd(void);
 int				builtin_unset(t_env *env, char **to_unset, t_env *temp, int x);
-int				export_with_args(t_env *environement, char **command, int i);
+int				export_with_args(t_env *environement,
+					char **command, int i, int verify);
+int				call_env(t_env *env);
 
 // CORE
 /* init_shell.c */

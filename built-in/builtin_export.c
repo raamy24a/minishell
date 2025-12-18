@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2025/12/15 15:11:56 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 16:09:36 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,15 @@ int	export_str(t_env *env, char **to_export)
 	return (0);
 }
 
-int	export_with_args(t_env *environement, char **command, int i)
+int	export_with_args(t_env *environement, char **command, int i, int verify)
 {
 	char	**command_split;
 
 	while (command[++i])
 	{
 		command_split = ft_split(command[i], "=");
-		if (verify_identifier(command_split, i, 0, command_split[i]) != 1)
+		if (verify == 1 && verify_identifier(command_split
+				, i, 0, command_split[i]) != 1)
 			continue ;
 		else
 			export_str(environement, &command_split[0]);
@@ -137,7 +138,7 @@ int	export_with_args(t_env *environement, char **command, int i)
 	return (0);
 }
 
-int	export_builtin(t_env *environement, char **command)
+int	export_builtin(t_env *environement, char **command, int verify)
 {
 	t_env	*sorted_env;
 	t_env	*temp;
@@ -156,6 +157,6 @@ int	export_builtin(t_env *environement, char **command)
 		printf("declare -x %s=\"%s\"\n", temp->key, temp->value);
 	}
 	else
-		x = export_with_args(environement, &command[1], -1);
+		x = export_with_args(environement, &command[1], -1, verify);
 	return (x);
 }

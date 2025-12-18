@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:08:29 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 16:10:05 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 2)
 		return (call_pwd());
 	if (x == 3)
-		return (export_builtin(env, command));
+		return (export_builtin(env, command, 0));
 	if (x == 4)
-		return (builtin_unset(env, command, temp, 0));
+		return (builtin_unset(env, command, temp, 1));
 	if (x == 5)
 		return (call_cd(env, command[1]));
 	if (x == 6)
 		return (printf("Exit code: %d\n", exit_call(0)));
+	if (x == 7)
+		return (call_env(env));
 	return (0);
 }
 
@@ -110,8 +112,10 @@ int	is_builtin_child(char *builtin_str)
 {
 	if (ft_strcmp(builtin_str, "echo") == 0)
 		return (1);
-	else if (ft_strcmp(builtin_str, "PWD") == 0)
+	else if (ft_strcmp(builtin_str, "pwd") == 0)
 		return (2);
+	else if (ft_strcmp(builtin_str, "env") == 0)
+		return (7);
 	return (0);
 }
 
@@ -141,7 +145,7 @@ static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 	if (next_fd != -1 && next_fd != output_fd)
 		close(next_fd);
 	if (is_builtin_child(cmd->argv[0]))
-		exit(exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
+		exit(exec_builtin(is_builtin_child(cmd->argv[0]), cmd->argv, env));
 	execvp(cmd->argv[0], cmd->argv);
 	perror(cmd->argv[0]);
 	exit(127);

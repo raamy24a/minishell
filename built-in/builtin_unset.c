@@ -6,33 +6,30 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:24:56 by radib             #+#    #+#             */
-/*   Updated: 2025/12/12 15:05:41 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/18 15:41:59 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "../libft/libft.h"
 
-void	environement_modifications(t_env *env, t_env *temp, int y)
+void	environement_modifications(t_env *env, t_env *temp, char *key)
 {
 	int		i;
 	t_env	*previous;
 
 	previous = env;
+	temp = env;
 	i = 0;
-	while (i < y)
+	while (temp->next && ft_strcmp (key, temp->key) != 0)
 	{
-		previous = previous->next;
-		if (previous->next)
-			temp = previous->next;
-		i++;
+		previous = temp;
+		temp = temp->next;
 	}
-	if (temp->next->key)
-	{
+	if (ft_strcmp (key, temp->key) != 0)
+		return ;
+	if (temp->next)
 		previous->next = temp->next;
-		previous->key = temp->key;
-		previous->value = temp->value;
-	}
 	else
 		previous->next = NULL;
 	free(temp);
@@ -46,13 +43,7 @@ int	builtin_unset(t_env *env, char **to_unset, t_env *temp, int x)
 	{
 		y = 0;
 		temp = env;
-		while (temp->next && ft_strcmp (to_unset[x], temp->key) != 0)
-		{
-			temp = temp->next;
-			y++;
-		}
-		if (ft_strcmp (to_unset[x], temp->key) == 0)
-			environement_modifications(env, temp, y - 1);
+		environement_modifications(env, temp, to_unset[x]);
 		x++;
 	}
 	return (0);
