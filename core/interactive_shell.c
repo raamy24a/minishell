@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:06:01 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/28 16:27:34 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	interactive_shell(t_env *env)
 {
 	char	*user_input;
 	int		last_status;
+	struct sigaction	sa;
 
+	sa.sa_sigaction = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
 	last_status = 0;
 	while (1)
 	{
