@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:08:52 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/19 15:14:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,3 @@ t_env	*init_env(char **env)
 	return (head);
 }
 
-/*  main de test local */
-
-// int print_env(t_env *env)
-// {
-//     while (env)
-//     {
-//         if (env->value != NULL)
-//             ft_printf("%s=%s\n", env->key, env->value);
-//         env = env->next;
-//     }
-// 	return (0);
-// }
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	(void)ac;
-// 	(void)av;
-
-// 	t_env	*env_list = init_env(envp);
-// 	if (!env_list)
-// 	{
-// 		ft_printf("%s\n", "init env failed");
-// 		return (1);
-// 	}
-// 	print_env(env_list);
-// 	free_env(&env_list);
-// 	return (0);
-// }

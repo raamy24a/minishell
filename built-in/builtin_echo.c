@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/16 13:40:49 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/19 15:15:02 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,29 +83,5 @@ int	echobuiltin(char **string, t_env *env, int newline, int x)
 	echo_write(&string[j - 1], env, x, 0);
 	if (newline == 1)
 		printf("\n");
-	return (0);
-}
-
-t_env	*new_env_varr(char *key, char *value)
-{
-	t_env	*new_node;
-
-	new_node = (t_env *)malloc(sizeof(t_env));
-	if (!new_node)
-		return (NULL);
-	new_node->key = key;
-	new_node->value = value;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-int	print_env(t_env *env)
-{
-	while (env)
-	{
-		if (env->value != NULL)
-			ft_printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
 	return (0);
 }

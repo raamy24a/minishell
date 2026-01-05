@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/18 16:10:05 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/19 14:37:37 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 5)
 		return (call_cd(env, command[1]));
 	if (x == 6)
-		return (printf("Exit code: %d\n", exit_call(0)));
+		return (printf("Exit code: %d\n", exit_call(ft_atoi(command[1]))));
 	if (x == 7)
 		return (call_env(env));
 	return (0);

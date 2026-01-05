@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:05:43 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 15:34:17 by radib            ###   ########.fr       */
+/*   Updated: 2025/12/19 15:25:40 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ char	**strs_write(char **strs, char *str, char *charset)
 			i++;
 			j++;
 		}
-		strs[k][i] = '\0';
+		strs[k][j] = '\0';
 		if (i != l)
 			k++;
 	}
-	strs[k] = 0;
+	strs[k] = NULL;
 	return (strs);
 }
 
@@ -111,7 +111,7 @@ char	**ft_split(char *str, char *charset)
 		if (is_sep(str, charset, i) == 2)
 			break ;
 	}
-	strs = malloc(sizeof(char *) * k + 1);
+	strs = malloc(sizeof(char *) * (k + 1));
 	strs_alloc(strs, str, charset, 0);
 	strs_write(strs, str, charset);
 	return (strs);

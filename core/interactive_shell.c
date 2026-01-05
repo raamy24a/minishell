@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/28 16:27:34 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/05 15:23:36 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,43 @@ static char	*prompt_listener(void)
 	return (user_input);
 }
 
+void sigint_handle (int sig)
+{
+	sig = 3;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	printf("\nminishell$ ");
+}
+void sigquit_handle (int sig)
+{
+	sig = 1;
+	printf("\033[2K");
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void EOF_handle (int sig)
+{
+	sig = 3;
+	if (ft_strlen (prompt_listener()))
+	{
+		printf("%c", 127);
+		return ;
+	}
+	exit (0);
+}
+
 int	interactive_shell(t_env *env)
 {
 	char	*user_input;
 	int		last_status;
-	struct sigaction	sa;
 
-	sa.sa_sigaction = handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
-	last_status = 0;
 	while (1)
 	{
+		signal(SIGINT, sigint_handle);
+		signal(EOF, EOF_handle);
+		signal(SIGQUIT, sigquit_handle);
 		user_input = prompt_listener();
 		if (!user_input)
 			break ;
