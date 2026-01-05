@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/05 15:23:36 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/05 15:34:37 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*prompt_listener(void)
 	return (user_input);
 }
 
-void sigint_handle (int sig)
+void	sigint_handle(int sig)
 {
 	sig = 3;
 	rl_replace_line("", 0);
@@ -30,7 +30,8 @@ void sigint_handle (int sig)
 	rl_redisplay();
 	printf("\nminishell$ ");
 }
-void sigquit_handle (int sig)
+
+void	sigquit_handle(int sig)
 {
 	sig = 1;
 	printf("\033[2K");
@@ -38,7 +39,7 @@ void sigquit_handle (int sig)
 	rl_redisplay();
 }
 
-void EOF_handle (int sig)
+void	eof_handle(int sig)
 {
 	sig = 3;
 	if (ft_strlen (prompt_listener()))
@@ -57,7 +58,7 @@ int	interactive_shell(t_env *env)
 	while (1)
 	{
 		signal(SIGINT, sigint_handle);
-		signal(EOF, EOF_handle);
+		signal(EOF, eof_handle);
 		signal(SIGQUIT, sigquit_handle);
 		user_input = prompt_listener();
 		if (!user_input)
