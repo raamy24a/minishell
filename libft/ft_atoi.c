@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acollon <acollon@student.s19.be>           +#+  +:+       +#+        */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:37:40 by acollon           #+#    #+#             */
-/*   Updated: 2025/04/14 12:03:28 by acollon          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:13:01 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr, int sign, int total, int i)
 {
-	int		sign;
-	long	result;
-	long	flow;
-
-	sign = 1;
-	result = 0;
-	while ((*nptr >= 9 && *nptr <= 13) || (*nptr == 32))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	if (!nptr)
+		return (-20000000000);
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
+		if (nptr[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	while (*nptr >= '0' && *nptr <= '9')
+	if (sign == -1)
+		return (-20000000000);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		flow = result * 10 + (*nptr - '0');
-		if (sign == 1 && flow < result)
-			return (-1);
-		if (sign == -1 && (-flow > -result))
-			return (0);
-		result = flow;
-		nptr++;
+		total *= 10;
+		total += nptr[i] - '0';
+		if ((total * sign > 0) && sign == -1)
+			return (-20000000000);
+		if ((total < 0) && sign == 1)
+			return (-20000000000);
+		i++;
 	}
-	return ((sign * result));
+	if (!(nptr[i]) && !(sign == -1 && total == 0 && i == 1))
+		return ((long)(total * sign));
+	return (-20000000000);
 }
 /*
 #include <stdio.h>

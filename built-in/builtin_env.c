@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 14:36:38 by radib             #+#    #+#             */
-/*   Updated: 2025/12/18 14:43:48 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/06 13:00:32 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	call_env(t_env *env)
 		printf("%s=%s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
+	printf("%s=%s\n", temp->key, temp->value);
 	return (0);
 }

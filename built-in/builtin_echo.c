@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/19 15:15:02 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/06 11:05:47 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	echo_write(char **string, t_env *env, int x, int i)
 			else
 				write(1, &string[x][i++], 1);
 		}
+		if (string[x + 1])
+			write(1, " ", 1);
 	}
 	return (i);
 }

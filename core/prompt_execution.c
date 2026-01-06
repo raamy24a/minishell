@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/19 14:37:37 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/06 11:41:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,23 @@ static int	apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
 	return (0);
 }
 
+void	exec_exit(char **command)
+{
+	if (command[2])
+	{
+		printf ("minishell: exit: too many arguments\n");
+		exit_call(1);
+	}
+	if (!command[1])
+		exit_call(0);
+	if (!ft_atoi(command[1]) && ft_strlen(command[1]))
+	{
+		printf("hell: exit: %s: numeric argument required\n", command[1]);
+		exit_call(2);
+	}
+	exit_call(ft_atoi(command[1]));
+}
+
 int	exec_builtin(int x, char **command, t_env *env)
 {
 	t_env	*temp;
@@ -89,7 +106,7 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 5)
 		return (call_cd(env, command[1]));
 	if (x == 6)
-		return (printf("Exit code: %d\n", exit_call(ft_atoi(command[1]))));
+		exec_exit(command);
 	if (x == 7)
 		return (call_env(env));
 	return (0);
