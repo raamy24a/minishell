@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2025/12/18 16:15:51 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 13:08:39 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,18 @@ char	*cd_builtin(char *path, char *string_after_cd, int x)
 		return (string_after_cd);
 	while (split[x])
 	{
-		if ((split[x][0] == '.' || split[x][0] == '.') && split[x][1] == '.')
+		if ((split[x][0] == '.' && split[x][1] == '.') && split[x][2] == '\0')
 		{
-			if (split[x][1] == '.')
-				remove_last(path);
+			remove_last(path);
 			x++;
 		}
-		else
+		else if (ft_strcmp(split[x], "."))
 		{
 			add_word(path, split[x]);
 			x++;
 		}
+		else
+			x++;
 	}
 	return (path);
 }
@@ -83,14 +84,14 @@ int	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
 	s[2] = NULL;
 	s[0] = ft_strdup("export");
 	if (!s[0])
-		exit(1);
+		exit_call(1, env);
 	s[1] = ft_strjoin("OLDPWD=", old_pwd_value);
 	if (!s[1])
-		exit(1);
+		exit_call(1, env);
 	export_with_args(env, s, 0, 0);
 	s[1] = ft_strjoin("PWD=", pwd_value);
 	if (!s[1])
-		exit(1);
+		exit_call(1, env);
 	export_with_args(env, s, 0, 0);
 	free(s[0]);
 	free(s);

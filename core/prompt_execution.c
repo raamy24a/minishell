@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/06 11:41:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 12:45:01 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,23 @@ static int	apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
 	return (0);
 }
 
-void	exec_exit(char **command)
+void	exec_exit(char **command, t_env *env)
 {
-	if (command[2])
+	if (ft_atoi(command[1], 0, 0, 0)
+		== -20000000000 && ft_strlen(command[1]))
+	{
+		printf("minishell: exit: %s: numeric argument required\n", command[1]);
+		exit_call(2, env);
+	}
+	else if (command[2])
 	{
 		printf ("minishell: exit: too many arguments\n");
-		exit_call(1);
+		printf("exit\n");
+		return ;
 	}
-	if (!command[1])
-		exit_call(0);
-	if (!ft_atoi(command[1]) && ft_strlen(command[1]))
-	{
-		printf("hell: exit: %s: numeric argument required\n", command[1]);
-		exit_call(2);
-	}
-	exit_call(ft_atoi(command[1]));
+	else if (!command[1])
+		exit_call(0, env);
+	exit_call(ft_atoi(command[1], 0, 0, 0), env);
 }
 
 int	exec_builtin(int x, char **command, t_env *env)
@@ -106,7 +108,7 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 5)
 		return (call_cd(env, command[1]));
 	if (x == 6)
-		exec_exit(command);
+		exec_exit(command, env);
 	if (x == 7)
 		return (call_env(env));
 	return (0);
@@ -264,6 +266,9 @@ int	prompt_execution(char *user_input, t_env *env)
 	t_shell	*token_list;
 	int		status;
 
+	signal(SIGINT, SIG_DFL);
+	signal(EOF, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	token_list = NULL;
 	status = 0;
 	if (!lexer(user_input, &token_list))

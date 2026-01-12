@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/03 17:23:04 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 12:44:49 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 /* --BUILTINS-- */
 int				call_cd(t_env *env, char *string_after_cd);
 int				echobuiltin(char **string, t_env *env, int newline, int x);
-int				exit_call(int x);
+int				exit_call(int x, t_env *env);
 int				export_builtin(t_env *environement, char **command, int verify);
 int				call_pwd(void);
 char			**ft_split(char *str, char *charset);

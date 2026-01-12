@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2026/01/06 11:05:47 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 13:08:48 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	echo_dollars(char *s, int x, t_env *env)
 		x++;
 	temp = malloc(sizeof(char) * (x + 1));
 	if (!temp)
-		exit(1);
+		exit_call(1, env);
 	x = 0;
 	while (s[x] >= '0' && (s[x] <= '9' || s[x] >= 'A')
 		&& (s[x] <= 'Z' || s[x] >= 'a') && (s[x] <= 'z' || s[x] == '_'))

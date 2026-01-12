@@ -22,7 +22,7 @@
 # include "get_next_line/get_next_line.h"
 
 //PART_1
-int		ft_atoi(const char *nptr);
+long	ft_atoi(const char *nptr, int sign, int total, int i);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_isalnum(int c);
