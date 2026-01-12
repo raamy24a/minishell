@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 12:44:49 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 16:16:26 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int				export_with_args(t_env *environement,
 int				call_env(t_env *env);
 
 // CORE
+/* Signaux*/
+void			sigquit_handle(int sig);
+void			sigint_handle(int sig);
+
 /* init_shell.c */
 t_env			*init_shell(char **envp);
 

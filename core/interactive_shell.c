@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 13:09:35 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 16:15:31 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,6 @@ void	sigquit_handle(int sig)
 	rl_redisplay();
 }
 
-void	eof_handle(int sig)
-{
-	(void)sig;
-	if (ft_strlen (prompt_listener()))
-	{
-		printf("%c", 127);
-		return ;
-	}
-	exit (0);
-}
-
 int	interactive_shell(t_env *env)
 {
 	char	*user_input;
@@ -58,7 +47,6 @@ int	interactive_shell(t_env *env)
 	while (1)
 	{
 		signal(SIGINT, sigint_handle);
-		signal(EOF, eof_handle);
 		signal(SIGQUIT, sigquit_handle);
 		user_input = prompt_listener();
 		if (!user_input)

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 12:45:01 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/12 16:15:05 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 	int	input_fd;
 	int	output_fd;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	input_fd = prev_fd;
 	output_fd = next_fd;
 	if (input_fd == -1)
@@ -178,6 +180,8 @@ static	pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env
 		return (exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
 	else
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		pid = fork();
 		if (pid < 0)
 		{
@@ -186,6 +190,8 @@ static	pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env
 		}
 		if (pid == 0)
 			child_execute(cmd, prev_fd, next_fd, env);
+		signal(SIGINT, sigint_handle);
+		signal(SIGQUIT, sigquit_handle);
 		return (pid);
 	}
 }
@@ -216,6 +222,8 @@ static int	execute_commands(t_command *cmd, t_env *env)
 	int		count;
 	int		pipefd[2];
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	prev_fd = -1;
 	last_pid = -1;
 	count = 0;
@@ -266,9 +274,6 @@ int	prompt_execution(char *user_input, t_env *env)
 	t_shell	*token_list;
 	int		status;
 
-	signal(SIGINT, SIG_DFL);
-	signal(EOF, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	token_list = NULL;
 	status = 0;
 	if (!lexer(user_input, &token_list))
