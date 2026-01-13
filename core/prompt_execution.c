@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 16:15:05 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/13 15:23:18 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 	int	input_fd;
 	int	output_fd;
 
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	input_fd = prev_fd;
 	output_fd = next_fd;
 	if (input_fd == -1)
@@ -167,21 +167,19 @@ static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 		close(next_fd);
 	if (is_builtin_child(cmd->argv[0]))
 		exit(exec_builtin(is_builtin_child(cmd->argv[0]), cmd->argv, env));
-	execvp(cmd->argv[0], cmd->argv);
+	execve(get_value_of_key(env, "PATH"), cmd->argv, cmd->argv);
 	perror(cmd->argv[0]);
 	exit(127);
 }
 
 static	pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 {
-	pid_t	pid;
+	pid_t				pid;
 
 	if (is_builtin(cmd->argv[0]))
 		return (exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
 		pid = fork();
 		if (pid < 0)
 		{
@@ -190,8 +188,6 @@ static	pid_t launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env
 		}
 		if (pid == 0)
 			child_execute(cmd, prev_fd, next_fd, env);
-		signal(SIGINT, sigint_handle);
-		signal(SIGQUIT, sigquit_handle);
 		return (pid);
 	}
 }
@@ -208,6 +204,16 @@ static int	wait_children(pid_t last_pid, int count)
 		{
 			if (WIFEXITED(status))
 				exit_code = WEXITSTATUS(status);
+			else if (WTERMSIG(status) == SIGQUIT)
+			{
+				printf("Quit (core dumped)\n");
+				exit_code = 131;
+			}
+			else if (WTERMSIG(status) == SIGINT)
+			{
+				printf("\n");
+				exit_code = 130;
+			}
 			else
 				exit_code = 1;
 		}
@@ -222,8 +228,6 @@ static int	execute_commands(t_command *cmd, t_env *env)
 	int		count;
 	int		pipefd[2];
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	prev_fd = -1;
 	last_pid = -1;
 	count = 0;
@@ -250,6 +254,8 @@ static int	execute_commands(t_command *cmd, t_env *env)
 		cmd = cmd->next;
 		count++;
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	return (wait_children(last_pid, count));
 }
 

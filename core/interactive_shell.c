@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 16:15:31 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/13 13:29:05 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,37 @@ static char	*prompt_listener(void)
 	return (user_input);
 }
 
-void	sigint_handle(int sig)
+void	handler(int sig)
 {
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	sigquit_handle(int sig)
-{
-	(void)sig;
-	printf("\033[2K");
-	rl_on_new_line();
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+		(void)sig;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
+		printf("\033[2K");
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int	interactive_shell(t_env *env)
 {
-	char	*user_input;
-	int		last_status;
+	char				*user_input;
+	int					last_status;
+	struct sigaction	sa;
 
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
 	while (1)
 	{
-		signal(SIGINT, sigint_handle);
-		signal(SIGQUIT, sigquit_handle);
+		sigaction(SIGINT, &sa, NULL);
+		signal(SIGQUIT, SIG_IGN);
 		user_input = prompt_listener();
 		if (!user_input)
 			break ;

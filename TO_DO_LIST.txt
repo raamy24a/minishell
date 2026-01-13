@@ -1,3 +1,4 @@
 EXPEND $?
 EXPEND $ en general
-FIX les signaux dans les processus enfants
+FIX les signaux dans HERDOC
+t_ENV TO char **
