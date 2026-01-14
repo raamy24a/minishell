@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/13 15:23:18 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 09:52:31 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,12 @@ int	is_builtin_child(char *builtin_str)
 	return (0);
 }
 
+
 static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 {
-	int	input_fd;
-	int	output_fd;
+	int		input_fd;
+	int		output_fd;
+	char	**str_env;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -167,8 +169,8 @@ static void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 		close(next_fd);
 	if (is_builtin_child(cmd->argv[0]))
 		exit(exec_builtin(is_builtin_child(cmd->argv[0]), cmd->argv, env));
-	execve(get_value_of_key(env, "PATH"), cmd->argv, cmd->argv);
-	perror(cmd->argv[0]);
+	str_env = env_to_char_array(env);
+	px_exec(cmd->argv, str_env);
 	exit(127);
 }
 

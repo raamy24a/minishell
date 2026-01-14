@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/13 11:53:43 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 09:53:03 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int				export_with_args(t_env *environement,
 int				call_env(t_env *env);
 
 // CORE
+/*Env manip*/
+char			**env_to_char_array(t_env *env);
+
 /* Signaux*/
 void			handler(int sig);
 
@@ -58,6 +61,7 @@ int				interactive_shell(t_env *env);
 
 /* prompt_execution.c */
 int				prompt_execution(char *user_input, t_env *env);
+int				px_exec(char **cmd, char **env_str);
 
 /* quit_shell.c */
 void			quit_shell(int exit_status, t_env *env);
@@ -130,8 +134,5 @@ int				pipex(int ac, char **av, char **envp);
 /* pipex_utils.c */
 void			free_split(char **array);
 char			*px_find_path(char *cmd, char **envp);
-
-/* pipex_exec.c */
-int				px_exec(char *cmd, char **envp);
 
 #endif

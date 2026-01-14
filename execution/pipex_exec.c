@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:09:23 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 10:00:55 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,20 @@ static int	exec_error(char **args, char *msg, int code)
 	return (code);
 }
 
-static char	**build_args(char *cmd)
-{
-	if (!cmd)
-		return (NULL);
-	return (ft_split(cmd, " "));
-}
+// static char	**build_args(char *cmd)
+// {
+// 	if (!cmd)
+// 		return (NULL);
+// 	return (ft_split(cmd, " "));
+// }
 
-int	px_exec(char *cmd, char **envp)
+int	px_exec(char **args, char **env_str)
 {
 	char	*path;
-	char	**args;
 
-	args = build_args(cmd);
 	if (!args || !args[0])
 		return (exec_error(args, "Error: empty command", EXIT_FAILURE));
-	path = px_find_path(args[0], envp);
+	path = px_find_path(args[0], env_str);
 	if (!path)
 	{
 		ft_putstr_fd("Command not found: ", STDERR_FILENO);
@@ -43,7 +41,7 @@ int	px_exec(char *cmd, char **envp)
 		free_split(args);
 		return (127);
 	}
-	execve(path, args, envp);
+	execve(path, args, env_str);
 	perror("execve");
 	free(path);
 	free_split(args);
