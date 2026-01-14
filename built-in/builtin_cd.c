@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2026/01/12 13:08:39 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:16:01 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,13 @@ int wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 
 int	call_cd(t_env *env, char *string_after_cd)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	buffer[4096 + 1];
 	int		x;
 	char	*old_pwd;
 
 	old_pwd = get_pwd();
-	buffer[BUFFER_SIZE] = '\0';
-	getcwd (buffer, BUFFER_SIZE);
+	buffer[4096] = '\0';
+	getcwd (buffer, 4096);
 	x = wich_cd(env, string_after_cd, -1, old_pwd);
 	if (x == 0)
 		return (x);

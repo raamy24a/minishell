@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/19 15:14:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:30:15 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	free_env(t_env **head)
 	*head = NULL;
 }
 
-t_env	*init_env(char **env)
+t_env	*default_env(char **env)
 {
 	t_env	*head;
 	t_env	*node;
@@ -99,6 +99,34 @@ t_env	*init_env(char **env)
 		}
 		add_to_env(&head, node);
 		env++;
+	}
+	return (head);
+}
+t_env	*init_env(char **env)
+{
+	t_env	*head;
+	t_env	*node;
+	int		i;
+
+	i = 0;
+	head = NULL;
+	while (env[i])
+		i++;
+	if (i < 10)
+		head = default_env(ft_split(ft_strjoin (ft_strjoin("PWD=", get_pwd()), "-SHLVL=0-_=/usr/bin/env"),"-"));
+	else
+	{
+		while (*env)
+		{
+			node = duplicate_env(*env);
+			if (!node)
+			{
+				free_env(&head);
+				return (NULL);
+			}
+			add_to_env(&head, node);
+			env++;
+		}
 	}
 	return (head);
 }

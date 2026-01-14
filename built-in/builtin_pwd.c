@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/12 11:46:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:15:37 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*get_pwd(void)
 {
 	char	*buffer;
 
-	buffer = malloc (sizeof(char) * BUFFER_SIZE + 1);
-	buffer[BUFFER_SIZE] = '\0';
-	if (getcwd(buffer, BUFFER_SIZE) != NULL)
+	buffer = malloc (sizeof(char) * 4096 + 1);
+	buffer[4096] = '\0';
+	if (getcwd(buffer, 4096) != NULL)
 	{
 		return (buffer);
 	}
@@ -30,10 +30,10 @@ char	*get_pwd(void)
 
 int	call_pwd(void)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	buffer[4096 + 1];
 
-	buffer[BUFFER_SIZE] = '\0';
-	if (getcwd(buffer, BUFFER_SIZE) != NULL)
+	buffer[4096] = '\0';
+	if (getcwd(buffer, 4096) != NULL)
 	{
 		printf("%s\n", buffer);
 		return (0);

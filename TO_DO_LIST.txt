@@ -1,4 +1,4 @@
 EXPEND $?
 EXPEND $ en general
 FIX les signaux dans HERDOC
-t_ENV TO char **
+fix env -i ./minishell
