@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:37:40 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/06 11:13:01 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 16:24:55 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ long	ft_atoi(const char *nptr, int sign, int total, int i)
 			sign *= -1;
 		i++;
 	}
-	if (sign == -1)
-		return (-20000000000);
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		total *= 10;
@@ -40,15 +38,15 @@ long	ft_atoi(const char *nptr, int sign, int total, int i)
 		return ((long)(total * sign));
 	return (-20000000000);
 }
-/*
-#include <stdio.h>
-#include <stdlib.h>
 
-int     main(int ac, char **av)
-{
-	if (ac == 2)
-	{
-		printf("%d\n", ft_atoi(av[1]));
-		printf("%d\n", atoi(av[1]));
-	}
-}*/
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// int     main(int ac, char **av)
+// {
+// 	if (ac == 2)
+// 	{
+// 		printf("%ld\n", ft_atoi(av[1], 1, 0, 0));
+// 		printf("%d\n", atoi(av[1]));
+// 	}
+// }

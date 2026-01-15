@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/12 14:19:45 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 16:25:36 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,18 @@ typedef struct s_pipex
 	char	**envp;
 }	t_pipex;
 
+typedef struct s_struct
+{
+	t_shell		**node;
+	t_command	**head;
+	t_command	**tail;
+	t_command	**current;
+	bool		*pipe_pending;
+}	t_struct;
+
+typedef struct s_long_long_verif
+{
+	long long	nbr;
+	int			status;
+}	t_long_long_verif;
 #endif

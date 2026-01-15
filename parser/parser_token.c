@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:04 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:12:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 14:07:47 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,31 @@ int	ensure_command(t_command **head, t_command **tail,
 	return (1);
 }
 
-static int	process_command_token(t_shell **node, t_command **head,
-		t_command **tail, t_command **current, bool *pipe_pending)
+static int	process_command_token(t_shell **node
+		, t_struct *all, bool *pipe_pending)
 {
 	bool	pending;
 
 	pending = *pipe_pending;
-	if (!ensure_command(head, tail, current, pending))
+	if (!ensure_command(all->head, all->tail, all->current, pending))
 		return (0);
 	if (pending)
 		*pipe_pending = false;
 	if (is_redirection((*node)->token->type))
-		return (handle_redirection(*current, node, (*node)->token->type));
-	if (!command_add_word(*current, (*node)->token))
+		return (handle_redirection(*all->current, node, (*node)->token->type));
+	if (!command_add_word(*all->current, (*node)->token))
 		return (0);
 	return (1);
 }
 
-int	handle_token(t_shell **node, t_command **head,
-		t_command **tail, t_command **current, bool *pipe_pending)
+int	handle_token(t_shell **node, t_struct *all, bool *pipe_pending)
 {
 	if ((*node)->token->type == TOK_PIPE)
 	{
-		if (!handle_pipe(*current, *node, pipe_pending))
+		if (!handle_pipe(*all->current, *node, pipe_pending))
 			return (0);
-		*current = NULL;
+		*all->current = NULL;
 		return (1);
 	}
-	return (process_command_token(node, head, tail, current, pipe_pending));
+	return (process_command_token(node, all, pipe_pending));
 }

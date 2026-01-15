@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2025/12/18 16:09:36 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 14:31:12 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	export_str(t_env *env, char **to_export)
 	while (temp->next && ft_strcmp (to_export[0], temp->key) != 0)
 		temp = temp->next;
 	if (ft_strcmp (to_export[0], temp->key) == 0)
+	{
+		free(temp->value);
 		temp->value = to_export[1];
+	}
 	else
 	{
 		new = malloc(sizeof(t_env));
@@ -119,44 +122,4 @@ int	export_str(t_env *env, char **to_export)
 		temp->next = new;
 	}
 	return (0);
-}
-
-int	export_with_args(t_env *environement, char **command, int i, int verify)
-{
-	char	**command_split;
-
-	while (command[++i])
-	{
-		command_split = ft_split(command[i], "=");
-		if (verify == 1 && verify_identifier(command_split
-				, i, 0, command_split[i]) != 1)
-			continue ;
-		else
-			export_str(environement, &command_split[0]);
-		free(command_split);
-	}
-	return (0);
-}
-
-int	export_builtin(t_env *environement, char **command, int verify)
-{
-	t_env	*sorted_env;
-	t_env	*temp;
-	int		x;
-
-	x = 0;
-	if (!command[1])
-	{
-		sorted_env = sorting_list(environement);
-		temp = sorted_env;
-		while (temp->next)
-		{
-			printf("declare -x %s=\"%s\"\n", temp->key, temp->value);
-			temp = temp->next;
-		}
-		printf("declare -x %s=\"%s\"\n", temp->key, temp->value);
-	}
-	else
-		x = export_with_args(environement, &command[1], -1, verify);
-	return (x);
 }

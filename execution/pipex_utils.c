@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/14 15:37:10 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 14:24:03 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	free_split(char **array)
 	}
 	free(array);
 }
-static char	*get_underscore_value(char **envp)
+
+char	*get_underscore_value(char **envp)
 {
 	size_t	len;
 	size_t	i;
@@ -43,7 +44,8 @@ static char	*get_underscore_value(char **envp)
 	}
 	return (NULL);
 }
-static char	*get_path_value(char **envp)
+
+char	*get_path_value(char **envp)
 {
 	size_t	len;
 	size_t	i;
@@ -61,7 +63,7 @@ static char	*get_path_value(char **envp)
 	return (NULL);
 }
 
-static char	*build_path(const char *dir, const char *cmd)
+char	*build_path(const char *dir, const char *cmd)
 {
 	char	*joined;
 	char	*full;
@@ -74,42 +76,9 @@ static char	*build_path(const char *dir, const char *cmd)
 	return (full);
 }
 
-static char	*absolute_or_relative(const char *cmd)
+char	*absolute_or_relative(const char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	return (NULL);
-}
-
-char	*px_find_path(char *cmd, char **envp)
-{
-	char	**paths;
-	char	*candidate;
-	char	*path_value;
-	size_t	i;
-
-	if (!cmd || !*cmd)
-		return (NULL);
-	if (ft_strchr(cmd, '/'))
-		return (absolute_or_relative(cmd));
-	path_value = get_path_value(envp);
-	if (!path_value)
-		return (NULL);
-	paths = ft_split(path_value, ":");
-	if (!paths)
-		return (NULL);
-	i = 0;
-	while (paths[i])
-	{
-		candidate = build_path(paths[i], cmd);
-		if (candidate && access(candidate, X_OK) == 0)
-		{
-			free_split(paths);
-			return (candidate);
-		}
-		free(candidate);
-		i++;
-	}
-	free_split(paths);
-	return (get_underscore_value(envp));
 }

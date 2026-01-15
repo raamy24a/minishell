@@ -6,7 +6,7 @@
 #    By: radib <radib@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 16:37:52 by acollon           #+#    #+#              #
-#    Updated: 2026/01/14 15:22:15 by radib            ###   ########.fr        #
+#    Updated: 2026/01/15 15:32:48 by radib            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,15 @@ SRCS        = \
 				built-in/env_manipulation.c \
                 execution/pipex.c \
                 execution/pipex_exec.c \
+				execution/pipex_utils_two.c \
                 execution/pipex_utils.c \
-                error_manager/syntax_error.c
+                error_manager/syntax_error.c \
+				built-in/builtin_export_two.c \
+				built-in/builtin_cd_two.c \
+				core/prompt_execution_three.c \
+				core/prompt_execution_two.c \
+				env/init_env_two.c \
+				
 
 OBJS        = $(SRCS:.c=.o)
 

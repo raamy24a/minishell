@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/14 10:00:55 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 14:16:14 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	px_exec(char **args, char **env_str)
 
 	if (!args || !args[0])
 		return (exec_error(args, "Error: empty command", EXIT_FAILURE));
-	path = px_find_path(args[0], env_str);
+	path = px_find_path(args[0], env_str, -1, "");
 	if (!path)
 	{
 		ft_putstr_fd("Command not found: ", STDERR_FILENO);

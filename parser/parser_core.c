@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:04 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:12:04 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 14:09:57 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static int	init_parser(t_command **head, t_command **tail,
 	return (1);
 }
 
-static int	parse_tokens(t_shell *tokens, t_command **head,
-		t_command **tail, t_command **current)
+static int	parse_tokens(t_shell *tokens, t_struct *all)
 {
 	t_shell		*node;
 	bool		pipe_pending;
@@ -35,7 +34,7 @@ static int	parse_tokens(t_shell *tokens, t_command **head,
 	while (node)
 	{
 		if (!node->token
-			|| !handle_token(&node, head, tail, current, &pipe_pending))
+			|| !handle_token(&node, all, &pipe_pending))
 			return (0);
 		node = node->next;
 	}
@@ -49,10 +48,15 @@ int	parser(t_shell *tokens, t_command **out)
 	t_command	*head;
 	t_command	*tail;
 	t_command	*current;
+	t_struct	*all;
 
+	all = malloc(sizeof (t_struct));
+	all->head = &head;
+	all->tail = &tail;
+	all->current = &current;
 	if (!init_parser(&head, &tail, &current, out))
 		return (0);
-	if (!parse_tokens(tokens, &head, &tail, &current))
+	if (!parse_tokens(tokens, all))
 	{
 		free_command_list(&head);
 		return (0);

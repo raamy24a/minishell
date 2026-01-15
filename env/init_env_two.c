@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_shell.c                                       :+:      :+:    :+:   */
+/*   init_env_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 15:31:28 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 12:39:57 by radib            ###   ########.fr       */
+/*   Created: 2026/01/15 14:56:06 by radib             #+#    #+#             */
+/*   Updated: 2026/01/15 14:56:56 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env	*init_shell(char **envp)
+t_env	*init_env(char **env, int i)
 {
-	t_env	*env;
-	char	**command;
+	t_env	*head;
+	t_env	*node;
 
-	env = init_env(envp, 0);
-	command = malloc (sizeof (char *) * 3);
-	if (!env)
-		ft_putendl_fd("minishell: failed to initialize environment",
-			STDERR_FILENO);
-	command[0] = ft_strdup("export");
-	command[1] = ft_strjoin("SHLVL=", ft_itoa
-			(ft_atoi (get_value_of_key(env, "SHLVL"), 1, 0, 0) + 1));
-	command[2] = NULL;
-	export_with_args(env, command, 0, 0);
-	return (env);
+	head = NULL;
+	while (env[i])
+		i++;
+	if (i < 10)
+		head = default_env(ft_split(ft_strjoin (ft_strjoin
+						("PWD=", get_pwd()), "-SHLVL=0-_=/usr/bin/env"), "-"));
+	else
+	{
+		while (*env)
+		{
+			node = duplicate_env(*env);
+			if (!node)
+			{
+				free_env(&head);
+				return (NULL);
+			}
+			add_to_env(&head, node);
+			env++;
+		}
+	}
+	return (head);
 }

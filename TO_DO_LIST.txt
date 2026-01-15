@@ -1,4 +1,5 @@
 EXPEND $?
 EXPEND $ en general
-FIX les signaux dans HERDOC
 fix env -i ./minishell
+ignorer ctrl+\ dans heredoc
+exit LONG LONG max ...

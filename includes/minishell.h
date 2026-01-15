@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/14 09:53:03 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/15 15:30:32 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int				builtin_unset(t_env *env, char **to_unset, t_env *temp, int x);
 int				export_with_args(t_env *environement,
 					char **command, int i, int verify);
 int				call_env(t_env *env);
+int				verify_identifier(char **command, int i, int j, char *temp);
+int				export_str(t_env *env, char **to_export);
+t_env			*sorting_list(t_env *environement);
+char			*cd_home(t_env *env);
+int				old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value);
+char			*cd_builtin(char *path, char *string_after_cd, int x);
 
 // CORE
 /*Env manip*/
@@ -60,8 +66,19 @@ t_env			*init_shell(char **envp);
 int				interactive_shell(t_env *env);
 
 /* prompt_execution.c */
+int				is_builtin(char *builtin_str);
 int				prompt_execution(char *user_input, t_env *env);
 int				px_exec(char **cmd, char **env_str);
+int				apply_redirections(t_redir *redir,
+					int *input_fd, int *output_fd);
+int				exec_builtin(int x, char **command, t_env *env);
+pid_t			launch_command(t_command *cmd,
+					int prev_fd, int next_fd, t_env *env);
+int				wait_children(pid_t last_pid, int count);
+void			child_execute(t_command *cmd,
+					int prev_fd, int next_fd, t_env *env);
+int				execute_commands(t_command *cmd, t_env *env, int count);
+t_env			*default_env(char **env);
 
 /* quit_shell.c */
 void			quit_shell(int exit_status, t_env *env);
@@ -72,7 +89,7 @@ t_env			*new_env_var(char *key, char *value);
 void			add_to_env(t_env **head, t_env *node);
 t_env			*duplicate_env(char *input);
 void			free_env(t_env **head);
-t_env			*init_env(char **env);
+t_env			*init_env(char **env, int i);
 
 // LEXER
 /* lexer.c */
@@ -100,8 +117,7 @@ int				ft_isquote(char c);
 int				parser(t_shell *tokens, t_command **out);
 
 /* Token handling */
-int				handle_token(t_shell **node, t_command **head, t_command **tail,
-					t_command **current, bool *pipe_pending);
+int				handle_token(t_shell **node, t_struct *all, bool *pipe_pending);
 int				handle_redirection(t_command *current,
 					t_shell **token_node, t_token_type type);
 int				ensure_command(t_command **head, t_command **tail,
@@ -133,6 +149,11 @@ int				pipex(int ac, char **av, char **envp);
 
 /* pipex_utils.c */
 void			free_split(char **array);
-char			*px_find_path(char *cmd, char **envp);
+char			*px_find_path(char *cmd, char **envp, int i, char *path_value);
+char			*absolute_or_relative(const char *cmd);
+char			*build_path(const char *dir, const char *cmd);
+char			*get_path_value(char **envp);
+char			*get_underscore_value(char **envp);
+void			free_split(char **array);
 
 #endif
