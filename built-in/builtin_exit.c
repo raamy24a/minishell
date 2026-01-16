@@ -6,19 +6,20 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:48:51 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 16:30:05 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 03:56:34 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 #include "../libft/libft.h"
 
-t_long_long_verif	*atoll(const char *nptr, int sign, long long total, int i)
+t_long_verif	*ft_verif_atoll(const char *nptr
+	, int sign, long long total, int i)
 {
-	t_long_long_verif	*nbr;
+	t_long_verif	*nbr;
 
+	nbr = malloc(sizeof (t_long_verif));
 	nbr->status = 1;
-	nbr = malloc(sizeof (t_long_long_verif));
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == ' ')
 		i++;
 	if (nptr[i] == '-' || nptr[i] == '+')
@@ -40,6 +41,7 @@ t_long_long_verif	*atoll(const char *nptr, int sign, long long total, int i)
 	nbr->nbr = total * sign;
 	return (nbr);
 }
+
 int	exit_call(int x, t_env *env)
 {
 	t_env	*temp;

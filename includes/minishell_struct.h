@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 16:25:36 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 03:56:30 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ typedef struct s_long_long_verif
 {
 	long long	nbr;
 	int			status;
-}	t_long_long_verif;
+}	t_long_verif;
 #endif

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:31:27 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 14:32:13 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 22:24:45 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int	export_with_args(t_env *environement, char **command, int i, int verify)
 	while (command[++i])
 	{
 		command_split = ft_split(command[i], "=");
+		if (!command_split)
+			return (0);
 		if (verify == 1 && verify_identifier(command_split
 				, i, 0, command_split[i]) != 1)
 			continue ;
 		else
 			export_str(environement, &command_split[0]);
-		free(command_split);
+		free_split(command_split);
 	}
 	return (0);
 }

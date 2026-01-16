@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 14:55:38 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 04:00:12 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ int	apply_redirections(t_redir *redir, int *input_fd, int *output_fd)
 
 void	exec_exit(char **command, t_env *env)
 {
-	if (ft_atoi(command[1], 1, 0, 0)
-		== -20000000000 && ft_strlen(command[1]))
+	t_long_verif	*nbr;
+
+	nbr = ft_verif_atoll(command[1], 1, 0, 0);
+	if (nbr->status == 0)
 	{
 		printf("minishell: exit: %s: numeric argument required\n", command[1]);
 		exit_call(2, env);

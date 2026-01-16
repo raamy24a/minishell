@@ -6,16 +6,18 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:18:57 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 15:31:01 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 05:03:54 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*px_find_path(char *cmd, char **envp, int i, char *path_value)
+char	*px_find_path(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*candidate;
+	char	*path_value;
+	size_t	i;
 
 	if (!cmd || !*cmd)
 		return (NULL);
@@ -27,16 +29,14 @@ char	*px_find_path(char *cmd, char **envp, int i, char *path_value)
 	paths = ft_split(path_value, ":");
 	if (!paths)
 		return (NULL);
-	while (paths[++i])
+	i = 0;
+	while (paths[i])
 	{
 		candidate = build_path(paths[i], cmd);
 		if (candidate && access(candidate, X_OK) == 0)
-		{
-			free_split(paths);
-			return (candidate);
-		}
+			return (free_split(paths), candidate);
 		free(candidate);
+		i++;
 	}
-	free_split(paths);
-	return (get_underscore_value(envp));
+	return (free_split(paths), get_underscore_value(envp));
 }

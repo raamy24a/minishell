@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:04 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 14:09:57 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 05:22:54 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int	parser(t_shell *tokens, t_command **out)
 		return (0);
 	}
 	*out = head;
+	free (all);
 	return (1);
 }

@@ -1,4 +1,4 @@
-make[1]: Entering directory '/home/radib/19/tete/libft'
+make[1]: Entering directory '/home/raamy/lol/libft'
 cc -Wall -Wextra -Werror -g -c ft_atoi.c -o ft_atoi.o
 cc -Wall -Wextra -Werror -g -c ft_atol.c -o ft_atol.o
 cc -Wall -Wextra -Werror -g -c ft_bzero.c -o ft_bzero.o
@@ -55,4 +55,4 @@ cc -Wall -Wextra -Werror -g -c ft_printf/src/ft_putptr.c -o ft_printf/src/ft_put
 cc -Wall -Wextra -Werror -g -c get_next_line/get_next_line.c -o get_next_line/get_next_line.o
 cc -Wall -Wextra -Werror -g -c get_next_line/get_next_line_utils.c -o get_next_line/get_next_line_utils.o
 ar rcs libft.a ft_atoi.o ft_atol.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_itoa.o ft_lstadd_back_bonus.o ft_lstadd_front_bonus.o ft_lstclear_bonus.o ft_lstdelone_bonus.o ft_lstiter_bonus.o ft_lstlast_bonus.o ft_lstmap_bonus.o ft_lstnew_bonus.o ft_lstsize_bonus.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_strchr.o ft_strcmp.o ft_strdup.o ft_striteri.o ft_strjoin.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o ft_strnstr.o ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o ft_printf/src/ft_dispatch.o ft_printf/src/ft_printf.o ft_printf/src/ft_putchar.o ft_printf/src/ft_putstr.o ft_printf/src/ft_putnbr.o ft_printf/src/ft_putnbr_unsigned.o ft_printf/src/ft_puthex.o ft_printf/src/ft_putptr.o get_next_line/get_next_line.o get_next_line/get_next_line_utils.o
-make[1]: Leaving directory '/home/radib/19/tete/libft'
+make[1]: Leaving directory '/home/raamy/lol/libft'

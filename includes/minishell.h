@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 15:30:32 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 05:52:58 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ t_env			*sorting_list(t_env *environement);
 char			*cd_home(t_env *env);
 int				old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value);
 char			*cd_builtin(char *path, char *string_after_cd, int x);
+t_long_verif	*ft_verif_atoll(const char *nptr, int sign,
+					long long total, int i);
 
 // CORE
 /*Env manip*/
-char			**env_to_char_array(t_env *env);
+char			**env_to_char_array(t_env *env, int i);
 
 /* Signaux*/
 void			handler(int sig);
@@ -88,7 +90,7 @@ void			quit_shell(int exit_status, t_env *env);
 t_env			*new_env_var(char *key, char *value);
 void			add_to_env(t_env **head, t_env *node);
 t_env			*duplicate_env(char *input);
-void			free_env(t_env **head);
+void			free_env(t_env **env);
 t_env			*init_env(char **env, int i);
 
 // LEXER
@@ -149,7 +151,7 @@ int				pipex(int ac, char **av, char **envp);
 
 /* pipex_utils.c */
 void			free_split(char **array);
-char			*px_find_path(char *cmd, char **envp, int i, char *path_value);
+char			*px_find_path(char *cmd, char **envp);
 char			*absolute_or_relative(const char *cmd);
 char			*build_path(const char *dir, const char *cmd);
 char			*get_path_value(char **envp);

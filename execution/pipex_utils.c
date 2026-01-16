@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 14:24:03 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 05:02:33 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_underscore_value(char **envp)
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "_", len) == 0)
-			return (envp[i] + len);
+			return (/*envp[i] + len*/NULL);
 		i++;
 	}
 	return (NULL);

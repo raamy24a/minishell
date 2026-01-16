@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/15 14:56:22 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/16 06:04:04 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,25 @@ t_env	*duplicate_env(char *input)
 	return (new_env_var(key, value));
 }
 
-void	free_env(t_env **head)
+void	free_env(t_env **env)
 {
 	t_env	*tmp;
 
-	while (*head)
+	tmp = (*env);
+	while (tmp->next)
 	{
-		tmp = (*head)->next;
-		free((*head)->key);
-		free((*head)->value);
-		free(*head);
-		*head = tmp;
+		tmp = (*env);
+		tmp = tmp->next;
+		free((*env)->key);
+		printf("%s <--\n", (*env)->value);
+		free((*env)->value);
+		free(*env);
+		(*env) = tmp;
 	}
-	*head = NULL;
+	free((*env)->key);
+	free((*env)->value);
+	free(*env);
+	env = NULL;
 }
 
 t_env	*default_env(char **env)
