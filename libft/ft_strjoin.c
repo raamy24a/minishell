@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:44:56 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/16 22:27:26 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/17 04:46:01 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return ((char *) s2);
+		return (ft_strdup(s2));
 	if (!s2)
-		return ((char *) s1);
-	printf("2:%s \n, 1:%s\n", s1, s2);
+		return (ft_strdup(s1));
 	str_strjoin = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str_strjoin)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/16 06:04:04 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/17 04:42:22 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	free_env(t_env **env)
 		tmp = tmp->next;
 		free((*env)->key);
 		printf("%s <--\n", (*env)->value);
-		free((*env)->value);
+		if ((*env)->value)
+			free((*env)->value);
 		free(*env);
 		(*env) = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 07:23:43 by radib             #+#    #+#             */
-/*   Updated: 2026/01/16 22:49:43 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/17 05:18:06 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int env_len(t_env *env)
 	t_env	*temp;
 	int		i;
 
-	i = 0;
+	i = 1;
 	temp = env;
 	while (temp->next)
 	{
@@ -96,8 +96,14 @@ char	**env_to_char_array(t_env *env, int i)
 		temp = temp->next;
 		i++;
 	}
-	first_part = ft_strjoin(temp->key, "=");
-	array_env[i] = ft_strjoin (first_part, temp->value);
+	if (temp->value)
+		{
+			first_part = ft_strjoin(temp->key, "=");
+			array_env[i] = ft_strjoin (first_part, temp->value);
+			free(first_part);
+		}
+	else
+		array_env[i] = ft_strjoin(temp->key, "=");
 	array_env[i + 1] = NULL;
-	return (free(first_part), array_env);
+	return (array_env);
 }

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:48:51 by radib             #+#    #+#             */
-/*   Updated: 2026/01/16 03:56:34 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/17 05:25:49 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ t_long_verif	*ft_verif_atoll(const char *nptr
 	}
 	nbr->nbr = total * sign;
 	return (nbr);
+}
+
+int	exit_call_silent(int x, t_env *env)
+{
+	t_env	*temp;
+
+	temp = env;
+	while (temp->next)
+	{
+		temp = temp->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = temp;
+	}
+	free(env->key);
+	free(env->value);
+	free(env);
+	rl_clear_history();
+	x = x % 256;
+	exit (x);
 }
 
 int	exit_call(int x, t_env *env)
