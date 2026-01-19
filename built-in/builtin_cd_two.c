@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:28:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 14:31:53 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 14:25:14 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ int	wich_cd(t_env *env, char *string_after_cd, int x, char *old_pwd)
 		if (x == 0)
 		{
 			printf("%s\n", get_pwd());
-			return (old_n_pwd(env, old_pwd, get_pwd()));
+			return (swap_env(env, old_pwd, get_pwd(), 1));
 		}
 	}
 	if (ft_strlen(string_after_cd) == 1 && string_after_cd[0] == '-')
 	{
 		x = chdir(cd_last(env));
-		printf("%s\n", get_pwd());
 		if (x == 0)
-			return (old_n_pwd(env, get_value_of_key(env, "PWD")
-					, get_value_of_key(env, "OLDPWD")));
+		{
+			printf("%s\n", get_pwd());
+			return (swap_env(env, "PWD", "OLDPWD", 0));
+		}
+		else
+			return (-2);
 	}
 	return (-1);
 }
@@ -54,12 +57,12 @@ int	call_cd(t_env *env, char *string_after_cd)
 	buffer[4096] = '\0';
 	getcwd (buffer, 4096);
 	x = wich_cd(env, string_after_cd, -1, old_pwd);
-	if (x == 0)
+	if (x == 0 || x == -2)
 		return (x);
 	if ((chdir(cd_builtin(buffer, string_after_cd, 0)) != 0))
 	{
 		perror("rien pour le moment");
 		return (errno);
 	}
-	return (old_n_pwd(env, old_pwd, get_pwd()));
+	return (swap_env(env, "OLDPWD", get_pwd(), 1));
 }

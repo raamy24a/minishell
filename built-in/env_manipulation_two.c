@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   env_manipulation_two.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 09:59:25 by radib            ###   ########.fr       */
+/*   Created: 2026/01/19 09:58:40 by radib             #+#    #+#             */
+/*   Updated: 2026/01/19 14:28:54 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../libft/libft.h"
 
-char	*get_pwd(void)
+int	change_value_of_key(t_env *env, char *key, char *new_value)
 {
-	char	*buffer;
+	t_env	*tmp;
 
-	buffer = malloc (sizeof(char) * 4096 + 1);
-	buffer[4096] = '\0';
-	if (getcwd(buffer, 4096) != NULL)
+	tmp = env;
+	while (tmp->next && ft_strcmp(key, tmp->key) != 0)
 	{
-		return (buffer);
+		tmp = tmp->next;
 	}
-	free(buffer);
-	perror("rien pour l'instant");
-	return (NULL);
-}
-
-int	call_pwd(void)
-{
-	char	buffer[4096 + 1];
-
-	buffer[4096] = '\0';
-	if (getcwd(buffer, 4096) != NULL)
-	{
-		printf("%s\n", buffer);
+	if (ft_strcmp(key, tmp->key) != 0)
 		return (0);
-	}
-	return (errno);
+	free (tmp->value);
+	tmp->value = ft_strdup(new_value);
+	tmp->status = 1;
+	return (1);
 }

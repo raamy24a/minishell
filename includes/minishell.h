@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/17 05:29:04 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 18:22:53 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ int				export_with_args(t_env *environement,
 					char **command, int i, int verify);
 int				call_env(t_env *env);
 int				verify_identifier(char **command, int i, int j, char *temp);
-int				export_str(t_env *env, char **to_export);
+int				export_str(t_env *env, char **to_export, int equal);
 t_env			*sorting_list(t_env *environement);
 char			*cd_home(t_env *env);
-int				old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value);
 char			*cd_builtin(char *path, char *string_after_cd, int x);
 t_long_verif	*ft_verif_atoll(const char *nptr, int sign,
 					long long total, int i);
+int				change_value_of_key(t_env *env, char *key, char *new_value);
+int				swap_env(t_env *env, char *a, char *b, int mode);
+int				equal_choice(int equal, char *value);
+void			export_old_var(t_env *temp, char *to_export, int equal);
 
 // CORE
 /*Env manip*/

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2026/01/17 05:07:56 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 14:20:09 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,22 @@ char	*cd_builtin(char *path, char *string_after_cd, int x)
 	return (path);
 }
 
-int	old_n_pwd(t_env *env, char *old_pwd_value, char *pwd_value)
+int	swap_env(t_env *env, char *a, char *b, int mode)
 {
-	char	**s;
+	char	*c;
 
-	s = malloc (sizeof (char *) * 3);
-	s[2] = NULL;
-	s[0] = ft_strdup("export");
-	if (!s[0])
-		exit_call(1, env);
-	s[1] = ft_strjoin("OLDPWD=", old_pwd_value);
-	if (!s[1])
-		exit_call(1, env);
-	export_with_args(env, s, 0, 0);
-	s[1] = ft_strjoin("PWD=", pwd_value);
-	if (!s[1])
-		exit_call(1, env);
-	export_with_args(env, s, 0, 0);
-	free(s[0]);
-	free(s);
+	c = ft_strdup(get_value_of_key(env, a));
+	if (mode == 1)
+	{
+		change_value_of_key(env, "PWD", b);
+		change_value_of_key(env, a, c);
+	}
+	else
+	{
+		change_value_of_key(env, a, get_value_of_key(env, b));
+		change_value_of_key(env, b, c);
+	}
+	free(c);
 	return (0);
 }
 
@@ -110,6 +107,6 @@ char	*cd_home(t_env *env)
 		ft_printf("minishell: cd: HOME not set\n");
 		return (NULL);
 	}
-	old_n_pwd(env, get_value_of_key(env, "PWD"), get_value_of_key(env, "HOME"));
+	swap_env(env, "HOME", "PWD", 0);
 	return (temp->value);
 }

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:15:57 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/17 04:42:22 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 17:33:38 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_env	*new_env_var(char *key, char *value)
 		return (NULL);
 	new_node->key = key;
 	new_node->value = value;
+	new_node->status = 1;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -39,6 +40,7 @@ void	add_to_env(t_env **head, t_env *node)
 	current = *head;
 	while (current->next)
 		current = current->next;
+	current->status = 1;
 	current->next = node;
 }
 
@@ -104,6 +106,8 @@ t_env	*default_env(char **env)
 			free_env(&head);
 			return (NULL);
 		}
+		if (!ft_strcmp(node->key, "OLDPWD"))
+			node->status = 0;
 		add_to_env(&head, node);
 		env++;
 	}

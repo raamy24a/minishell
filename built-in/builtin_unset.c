@@ -6,11 +6,11 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:24:56 by radib             #+#    #+#             */
-/*   Updated: 2026/01/08 13:44:08 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 09:59:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 #include "../libft/libft.h"
 
 void	environement_modifications(t_env *env, t_env *temp, char *key)

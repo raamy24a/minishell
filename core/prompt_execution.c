@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/16 04:00:12 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 15:06:41 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	exec_exit(char **command, t_env *env)
 {
 	t_long_verif	*nbr;
 
+	if (!command[1])
+		exit_call(0, env);
 	nbr = ft_verif_atoll(command[1], 1, 0, 0);
 	if (nbr->status == 0)
 	{
@@ -93,8 +95,6 @@ void	exec_exit(char **command, t_env *env)
 		printf("exit\n");
 		return ;
 	}
-	else if (!command[1])
-		exit_call(0, env);
 	exit_call(ft_atoi(command[1], 1, 0, 0), env);
 }
 
@@ -108,7 +108,7 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 2)
 		return (call_pwd());
 	if (x == 3)
-		return (export_builtin(env, command, 0));
+		return (export_builtin(env, command, 1));
 	if (x == 4)
 		return (builtin_unset(env, command, temp, 1));
 	if (x == 5)
