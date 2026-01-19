@@ -2,3 +2,4 @@ EXPEND $?
 EXPEND $ en general
 fix env -i ./minishell
 ignorer ctrl+\ dans heredoc
+fix export (un status fonctionnel)
