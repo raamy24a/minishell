@@ -1,0 +1,4 @@
+EXPEND $?
+EXPEND $ en general
+fix env -i ./minishell
+ignorer ctrl+\ dans heredoc

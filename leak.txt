@@ -1,0 +1,87 @@
+/home/raamy/lol
+==14300== 
+==14300== HEAP SUMMARY:
+==14300==     in use at exit: 232,922 bytes in 241 blocks
+==14300==   total heap usage: 594 allocs, 353 frees, 266,566 bytes allocated
+==14300== 
+==14300== 4 bytes in 1 blocks are still reachable in loss record 1 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x489C0EC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==14300==    by 0x4878E37: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==14300==    by 0x48838EA: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==14300==    by 0x109698: prompt_listener (interactive_shell.c:19)
+==14300==    by 0x1097A0: interactive_shell (interactive_shell.c:56)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 
+==14300== 4 bytes in 1 blocks are still reachable in loss record 2 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x10EB9A: ft_substr (ft_substr.c:31)
+==14300==    by 0x10A711: process_token_at (token_manager.c:122)
+==14300==    by 0x10A21E: lexer (lexer.c:102)
+==14300==    by 0x10DB4F: prompt_execution (prompt_execution_two.c:84)
+==14300==    by 0x1097D8: interactive_shell (interactive_shell.c:60)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 
+==14300== 4 bytes in 1 blocks are still reachable in loss record 3 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x10DF01: ft_calloc (ft_calloc.c:24)
+==14300==    by 0x10B34E: strip_quotes (parser_utils.c:46)
+==14300==    by 0x10B4AD: parser_token_value (parser_utils.c:72)
+==14300==    by 0x10A89C: handle_new_word (parser_command.c:47)
+==14300==    by 0x10A995: command_add_word (parser_command.c:69)
+==14300==    by 0x10B1C9: process_command_token (parser_token.c:66)
+==14300==    by 0x10B25E: handle_token (parser_token.c:80)
+==14300==    by 0x10AA45: parse_tokens (parser_core.c:37)
+==14300==    by 0x10AB1A: parser (parser_core.c:59)
+==14300==    by 0x10DAA8: run_pipeline (prompt_execution_two.c:69)
+==14300==    by 0x10DB78: prompt_execution (prompt_execution_two.c:87)
+==14300== 
+
+==14300== 16 bytes in 1 blocks are still reachable in loss record 16 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x10A152: alloc_token (lexer.c:76)
+==14300==    by 0x10A5AE: parse_token (token_manager.c:94)
+==14300==    by 0x10A6EA: process_token_at (token_manager.c:120)
+==14300==    by 0x10A21E: lexer (lexer.c:102)
+==14300==    by 0x10DB4F: prompt_execution (prompt_execution_two.c:84)
+==14300==    by 0x1097D8: interactive_shell (interactive_shell.c:60)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 
+==14300== 16 bytes in 1 blocks are still reachable in loss record 17 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x10DF01: ft_calloc (ft_calloc.c:24)
+==14300==    by 0x10A959: command_add_word (parser_command.c:65)
+==14300==    by 0x10B1C9: process_command_token (parser_token.c:66)
+==14300==    by 0x10B25E: handle_token (parser_token.c:80)
+==14300==    by 0x10AA45: parse_tokens (parser_core.c:37)
+==14300==    by 0x10AB1A: parser (parser_core.c:59)
+==14300==    by 0x10DAA8: run_pipeline (prompt_execution_two.c:69)
+==14300==    by 0x10DB78: prompt_execution (prompt_execution_two.c:87)
+==14300==    by 0x1097D8: interactive_shell (interactive_shell.c:60)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 
+==14300== 
+==14300== 32 bytes in 1 blocks are still reachable in loss record 21 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x109FBC: new_node (lexer.c:19)
+==14300==    by 0x10A023: append_node (lexer.c:34)
+==14300==    by 0x10A735: process_token_at (token_manager.c:123)
+==14300==    by 0x10A21E: lexer (lexer.c:102)
+==14300==    by 0x10DB4F: prompt_execution (prompt_execution_two.c:84)
+==14300==    by 0x1097D8: interactive_shell (interactive_shell.c:60)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 
+==14300== 40 bytes in 1 blocks are still reachable in loss record 22 of 81
+==14300==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14300==    by 0x10DF01: ft_calloc (ft_calloc.c:24)
+==14300==    by 0x10A7A1: command_new (parser_command.c:19)
+==14300==    by 0x10B09B: ensure_command (parser_token.c:41)
+==14300==    by 0x10B14F: process_command_token (parser_token.c:60)
+==14300==    by 0x10B25E: handle_token (parser_token.c:80)
+==14300==    by 0x10AA45: parse_tokens (parser_core.c:37)
+==14300==    by 0x10AB1A: parser (parser_core.c:59)
+==14300==    by 0x10DAA8: run_pipeline (prompt_execution_two.c:69)
+==14300==    by 0x10DB78: prompt_execution (prompt_execution_two.c:87)
+==14300==    by 0x1097D8: interactive_shell (interactive_shell.c:60)
+==14300==    by 0x10954A: main (main.c:28)
+==14300== 

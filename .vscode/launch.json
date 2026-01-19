@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug minishell (C)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "text": "set follow-fork-mode child"
+                }
+            ]
+        }
+    ]
+}
