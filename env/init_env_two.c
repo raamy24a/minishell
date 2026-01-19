@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:56:06 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 14:56:56 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 02:03:55 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_env	*init_env(char **env, int i)
 	if (i < 10)
 		head = default_env(ft_split(ft_strjoin (ft_strjoin
 						("PWD=", get_pwd()), "-SHLVL=0-_=/usr/bin/env"), "-"));
+						/*to fix leak*/
 	else
 	{
 		while (*env)
