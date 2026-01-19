@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 18:23:04 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 19:44:22 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*list_duplicator(t_env *a, t_env *dup_head, t_env *cur_o,
 			return (dup_head);
 		new_node->key = ft_strdup(cur_o->key);
 		new_node->value = ft_strdup(cur_o->value);
-		new_node->status = a->status;
+		new_node->status = cur_o->status;
 		new_node->next = NULL;
 		cur_dup->next = new_node;
 		cur_dup = new_node;
@@ -103,7 +103,6 @@ int	verify_identifier(char **command, int i, int j, char *temp)
 
 int	export_str(t_env *env, char **to_export, int equal)
 {
-	t_env	*new;
 	t_env	*temp;
 
 	temp = env;
@@ -112,15 +111,6 @@ int	export_str(t_env *env, char **to_export, int equal)
 	if (ft_strcmp (to_export[0], temp->key) == 0)
 		export_old_var(temp, to_export[1], equal);
 	else
-	{
-		new = malloc(sizeof(t_env));
-		if (!new)
-			return (0);
-		new->key = ft_strdup(to_export[0]);
-		new->value = ft_strdup(to_export[1]);
-		new->status = equal_choice(equal, temp->value);
-		new->next = NULL;
-		temp->next = new;
-	}
+		export_new_var(temp, to_export, equal);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/19 18:22:53 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 19:43:43 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int				change_value_of_key(t_env *env, char *key, char *new_value);
 int				swap_env(t_env *env, char *a, char *b, int mode);
 int				equal_choice(int equal, char *value);
 void			export_old_var(t_env *temp, char *to_export, int equal);
+void			export_new_var(t_env *temp, char **to_export, int equal);
 
 // CORE
 /*Env manip*/
